@@ -15,6 +15,35 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    body { background-color: #fff !important; color: #333 !important; }
+    h1, h2, h3, h4, h5, h6 { color: #111 !important; }
+    .text-muted { color: #6c757d !important; }
+    
+    .glass-panel {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05) !important;
+    }
+    
+    .form-control {
+      background-color: #f8f9fa !important;
+      border: 1px solid #dee2e6 !important;
+      color: #333 !important;
+    }
+    
+    .form-control:focus {
+      background-color: #fff !important;
+      border-color: var(--accent-primary) !important;
+      box-shadow: 0 0 0 0.25rem rgba(255, 94, 120, 0.25) !important;
+    }
+    
+    .form-label { color: #555 !important; font-weight: 500; }
+    
+    .social-links a { color: var(--accent-primary) !important; transition: transform 0.2s ease; display: inline-block; }
+    .social-links a:hover { transform: translateY(-3px); opacity: 0.8; }
+  </style>
 </head>
 
 <body>
@@ -32,14 +61,16 @@
 
   <div id="navbar-container"></div>
 
-  <section class="section-padding" style="padding-top: 12rem;">
+  <!-- Header Banner -->
+  <section class="contact-page-header text-center" style="background-color: #6554c0; padding-top: 10rem; padding-bottom: 5rem;">
+    <div class="container gsap-fade-up">
+      <h1 class="display-3 fw-bold mb-3 text-white" style="color: #fff !important;">Get in Touch</h1>
+      <p class="fs-5 text-white-50" style="color: rgba(255,255,255,0.7) !important;">Have a question? We'd love to hear from you.</p>
+    </div>
+  </section>
+
+  <section class="section-padding" style="padding-top: 4rem;">
     <div class="container">
-      <div class="row mb-5 text-center">
-        <div class="col-12" data-aos="fade-up">
-          <h1 class="display-3 fw-bold mb-3">Get in Touch</h1>
-          <p class="fs-5 text-muted">Have a question? We'd love to hear from you.</p>
-        </div>
-      </div>
 
       <div class="row g-5">
         <!-- Contact Info -->

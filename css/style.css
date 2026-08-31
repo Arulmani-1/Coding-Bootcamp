@@ -1031,6 +1031,40 @@ img {
   }
 }
 
+/* Electric border on hover for blog-card-light and popular-card */
+.blog-card-light,
+.popular-card {
+  position: relative;
+  z-index: 1;
+}
+
+.blog-card-light::after,
+.popular-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, var(--accent-primary), #00f2fe, var(--accent-primary), #00f2fe) border-box;
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.blog-card-light:hover::after,
+.popular-card:hover::after {
+  opacity: 1;
+  animation: electric-border 3s linear infinite;
+}
+
 .recode-badge {
   display: inline-flex;
   align-items: center;
