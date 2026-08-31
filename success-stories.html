@@ -113,6 +113,20 @@
     .support-card:hover .support-icon {
       color: white !important;
     }
+    
+    /* Mentor Profile Button */
+    .btn-mentor {
+      border: 1px solid #212529;
+      color: #212529;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-mentor:hover {
+      background-color: var(--accent-primary) !important;
+      border-color: var(--accent-primary) !important;
+      color: white !important;
+      box-shadow: 0 4px 15px rgba(255,94,120,0.4);
+    }
   </style>
 </head>
 <body>
@@ -345,6 +359,85 @@
             </div>
             <h4 class="fw-bold text-dark mb-3" style="transition: color 0.3s ease;">Access to Job Board</h4>
             <p class="text-dark fs-7 mb-0" style="transition: color 0.3s ease;">Get exclusive access to curated job openings and apply directly to positions that match your skills and expertise.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mentors Section -->
+  <section class="py-5 bg-white text-center">
+    <div class="container pt-4 pb-4">
+      <p class="text-uppercase fw-bold mb-2" style="color: var(--accent-primary); font-size: 0.85rem; letter-spacing: 1px;">OUR EXPERTS</p>
+      <h2 class="display-4 fw-bold mb-3 text-dark">Learn from the Best.</h2>
+      <p class="fs-6 text-muted max-w-700 mx-auto mb-5">Our mentors are industry leaders from top tech companies.</p>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Mentor 1 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up">
+          <div class="card h-100 p-4 shadow-sm" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); background: #fff;">
+            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem; border: 2px solid rgba(0,0,0,0.1);">
+              <img src="assets/images/img-12.webp" alt="Mentor" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 class="h5 fw-bold text-dark mb-1">David Chen</h4>
+            <p class="text-accent fs-7 mb-2 fw-bold">Senior Engineer @ Google</p>
+            <p class="text-dark fs-7 mb-4">10+ Years Experience</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-linkedin"></i></a>
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-github"></i></a>
+            </div>
+            <a href="404.html" class="btn btn-mentor w-100 fs-7 py-2 rounded-pill fw-bold">View Profile</a>
+          </div>
+        </div>
+        
+        <!-- Mentor 2 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-100 p-4 shadow-sm" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); background: #fff;">
+            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem; border: 2px solid rgba(0,0,0,0.1);">
+              <img src="assets/images/img-13.webp" alt="Mentor" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 class="h5 fw-bold text-dark mb-1">Sarah Jenkins</h4>
+            <p class="text-accent fs-7 mb-2 fw-bold">AI Researcher @ OpenAI</p>
+            <p class="text-dark fs-7 mb-4">8+ Years Experience</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-linkedin"></i></a>
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-github"></i></a>
+            </div>
+            <a href="404.html" class="btn btn-mentor w-100 fs-7 py-2 rounded-pill fw-bold">View Profile</a>
+          </div>
+        </div>
+
+        <!-- Mentor 3 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100 p-4 shadow-sm" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); background: #fff;">
+            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem; border: 2px solid rgba(0,0,0,0.1);">
+              <img src="assets/images/img-14.webp" alt="Mentor" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 class="h5 fw-bold text-dark mb-1">Marcus Doe</h4>
+            <p class="text-accent fs-7 mb-2 fw-bold">Cloud Architect @ AWS</p>
+            <p class="text-dark fs-7 mb-4">12+ Years Experience</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-linkedin"></i></a>
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-github"></i></a>
+            </div>
+            <a href="404.html" class="btn btn-mentor w-100 fs-7 py-2 rounded-pill fw-bold">View Profile</a>
+          </div>
+        </div>
+
+        <!-- Mentor 4 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="card h-100 p-4 shadow-sm" style="border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); background: #fff;">
+            <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.5rem; border: 2px solid rgba(0,0,0,0.1);">
+              <img src="assets/images/img-15.webp" alt="Mentor" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h4 class="h5 fw-bold text-dark mb-1">Elena Rostova</h4>
+            <p class="text-accent fs-7 mb-2 fw-bold">Product Design @ Stripe</p>
+            <p class="text-dark fs-7 mb-4">6+ Years Experience</p>
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-linkedin"></i></a>
+              <a href="404.html" class="text-muted fs-5"><i class="bi bi-dribbble"></i></a>
+            </div>
+            <a href="404.html" class="btn btn-mentor w-100 fs-7 py-2 rounded-pill fw-bold">View Profile</a>
           </div>
         </div>
       </div>
