@@ -156,39 +156,46 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 30px;
   background: var(--accent-primary);
-  color: var(--bg-dark);
+  color: white;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 30px;
   border: none;
-  transition: all var(--transition-normal);
+  transition: all 0.3s ease;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
-  background: var(--text-primary);
-  color: var(--bg-dark);
+  background: var(--accent-secondary);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--border-glow);
+  box-shadow: 0 4px 15px rgba(255,94,120,0.4);
 }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
+  padding: 12px 30px;
   background: transparent;
   color: var(--text-primary);
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 30px;
   border: 1px solid var(--border-color);
-  transition: all var(--transition-normal);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-outline:hover {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
 }
 
 .btn-pink {
@@ -202,6 +209,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-pink:hover {
@@ -244,6 +253,32 @@ img {
   background: var(--accent-primary);
   color: white;
 }
+
+/* Button Shine Effect - Applied to all button types */
+.btn, .btn-primary, .btn-outline, .btn-pink, .btn-outline-pink, .btn-white, .btn-go-home, .filter-btn, button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after, .btn-primary::after, .btn-outline::after, .btn-pink::after, .btn-outline-pink::after, .btn-white::after, .btn-go-home::after, .filter-btn::after, button[type="submit"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  animation: button-shine 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes button-shine {
+  0% { left: -100%; }
+  20% { left: 200%; }
+  100% { left: 200%; }
+}
+
 
 /* Glass Surface / Cards */
 .glass-panel {
@@ -915,14 +950,57 @@ img {
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-/* Universal Electric Border Effect for all cards */
-.recode-card,
+/* Corner Draw Border Effect for recode-card */
+.recode-card {
+  position: relative;
+  z-index: 1;
+}
+
+.recode-card::before,
+.recode-card::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.recode-card::before {
+  top: -2px;
+  left: -2px;
+}
+
+.recode-card::after {
+  bottom: -2px;
+  right: -2px;
+}
+
+.recode-card:hover::before {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-top-color: var(--brand-pink);
+  border-right-color: var(--brand-pink);
+  transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+}
+
+.recode-card:hover::after {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom-color: var(--brand-pink);
+  border-left-color: var(--brand-pink);
+  transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+}
+
+/* Retain electric border for mentor-card and blog-card */
 .mentor-card,
 .blog-card {
   position: relative;
 }
 
-.recode-card::after,
 .mentor-card::after,
 .blog-card::after {
   content: '';
@@ -1670,4 +1748,87 @@ body.bootcamp-page .roadmap-step.active .roadmap-circle {
 .benefit-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   Universal Card Advanced Hover Effects (Shine + Corner Draw)
+   ========================================================================== */
+.glass-panel, .bootcamp-card, .pricing-card, .testimonial-card, .card, .blog-card, .mentor-card, .course-card, .feature-card, .benefit-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* 1. The Shine Sweep Effect (using .card-fx injected via JS) */
+.card-fx {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+.card-fx::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+  pointer-events: none;
+}
+.glass-panel:hover .card-fx::after, .bootcamp-card:hover .card-fx::after, .pricing-card:hover .card-fx::after, .testimonial-card:hover .card-fx::after, .card:hover .card-fx::after, .blog-card:hover .card-fx::after, .mentor-card:hover .card-fx::after, .course-card:hover .card-fx::after, .feature-card:hover .card-fx::after, .benefit-card:hover .card-fx::after {
+  animation: card-shine 0.8s ease-out;
+}
+
+/* 2. The Corner Draw Effect (using main card's ::before and ::after) */
+.glass-panel::before, .glass-panel::after,
+.bootcamp-card::before, .bootcamp-card::after,
+.pricing-card::before, .pricing-card::after,
+.testimonial-card::before, .testimonial-card::after,
+.card::before, .card::after,
+.blog-card::before, .blog-card::after,
+.mentor-card::before, .mentor-card::after,
+.course-card::before, .course-card::after,
+.feature-card::before, .feature-card::after,
+.benefit-card::before, .benefit-card::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  box-sizing: border-box;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.glass-panel::before, .bootcamp-card::before, .pricing-card::before, .testimonial-card::before, .card::before, .blog-card::before, .mentor-card::before, .course-card::before, .feature-card::before, .benefit-card::before {
+  top: -2px; left: -2px;
+}
+.glass-panel::after, .bootcamp-card::after, .pricing-card::after, .testimonial-card::after, .card::after, .blog-card::after, .mentor-card::after, .course-card::after, .feature-card::after, .benefit-card::after {
+  bottom: -2px; right: -2px;
+}
+
+.glass-panel:hover::before, .bootcamp-card:hover::before, .pricing-card:hover::before, .testimonial-card:hover::before, .card:hover::before, .blog-card:hover::before, .mentor-card:hover::before, .course-card:hover::before, .feature-card:hover::before, .benefit-card:hover::before {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-top-color: var(--accent-primary);
+  border-right-color: var(--accent-primary);
+  transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+}
+
+.glass-panel:hover::after, .bootcamp-card:hover::after, .pricing-card:hover::after, .testimonial-card:hover::after, .card:hover::after, .blog-card:hover::after, .mentor-card:hover::after, .course-card:hover::after, .feature-card:hover::after, .benefit-card:hover::after {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom-color: var(--accent-primary);
+  border-left-color: var(--accent-primary);
+  transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+}
+
+@keyframes card-shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
 }

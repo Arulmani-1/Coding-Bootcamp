@@ -55,6 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Page Transition Setup (Intercept Links)
     initPageTransitions();
 
+    // Add FX container to cards for advanced hover effects (Shine + Corner Draw)
+    const cards = document.querySelectorAll('.glass-panel, .bootcamp-card, .pricing-card, .testimonial-card, .card, .blog-card, .mentor-card, .course-card, .feature-card, .benefit-card');
+    cards.forEach(card => {
+      if(!card.querySelector('.card-fx')) {
+        const fx = document.createElement('div');
+        fx.className = 'card-fx';
+        card.appendChild(fx);
+      }
+    });
+
     // Generic GSAP Animations for sections
     const animateElements = (selector, fromVars) => {
       const elements = document.querySelectorAll(selector);
