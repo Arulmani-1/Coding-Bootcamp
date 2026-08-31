@@ -26,6 +26,21 @@ async function loadComponents() {
       if (footRes.ok) {
         const footHtml = await footRes.text();
         footerContainer.innerHTML = footHtml;
+        
+        // Newsletter subscription handler
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+          newsletterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('newsletter-message');
+            if (msg) {
+              msg.style.display = 'block';
+              setTimeout(() => {
+                window.location.href = '404.html';
+              }, 1500); // 1.5 second delay before redirect
+            }
+          });
+        }
       }
     }
 
