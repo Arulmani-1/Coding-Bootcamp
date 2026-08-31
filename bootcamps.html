@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootcamps - STACKLY</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body class="bootcamp-page">
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition-overlay"></div>
+
+  <div id="navbar-container"></div>
+
+  <!-- Hero Section -->
+  <section class="hero-section-banner">
+    <div class="container" data-aos="fade-up">
+      <div class="row align-items-center">
+        <!-- Left Column -->
+        <div class="col-lg-6 hero-left-content mb-5 mb-lg-0 text-start">
+          <span class="eyebrow hero-text-animate mb-3" style="color: #ff8a00 !important; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; display: inline-block;">Stackly Academy</span>
+          <h1 class="display-3 fw-bold mb-4 hero-text-animate text-white" style="line-height: 1.15;">
+            Build Skills.<br>
+            Build Products.<br>
+            <span class="text-gradient-hero">Build Your Future.</span>
+          </h1>
+          <p class="fs-5 mb-0 hero-text-animate text-white-50" style="max-width: 500px;">
+            Join our immersive bootcamps. Master real-world tech stacks through project-based learning and 1-on-1 expert mentorship. Start your new career today.
+          </p>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="col-lg-6 hero-right-visual">
+          <div class="visual-wrapper position-relative mx-auto" style="max-width: 500px;">
+            
+            <!-- Code Editor Window -->
+            <div class="code-editor-window text-start">
+              <div class="editor-header">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="editor-body">
+                <pre><code><span class="code-keyword">const</span> <span class="code-variable">stackly</span> = <span class="code-keyword">new</span> <span class="code-class">Developer</span>();
+<span class="code-variable">stackly</span>.<span class="code-method">learn</span>([<span class="code-string">'Code'</span>, <span class="code-string">'Design'</span>]);
+<span class="code-variable">stackly</span>.<span class="code-method">getHired</span>();</code></pre>
+              </div>
+            </div>
+            
+            <!-- Floating Badge: Full Stack -->
+            <div class="floating-card cohort-card" data-aos="fade-left" data-aos-delay="200">
+              <div class="card-icon">
+                <i class="bi bi-code-slash"></i>
+              </div>
+              <div class="card-details text-start">
+                <div class="card-title-text">Full Stack</div>
+                <div class="card-subtitle-text">Next Cohort: 2 Days</div>
+              </div>
+            </div>
+            
+            <!-- Floating Badge: Course Progress -->
+            <div class="floating-card progress-card text-start" data-aos="fade-right" data-aos-delay="300">
+              <div class="progress-label">Course Progress</div>
+              <div class="progress-value">84%</div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" style="width: 84%;"></div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Filter & Grid -->
+  <section class="section-padding pt-0">
+    <div class="container">
+
+      <!-- Filters -->
+      <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" data-aos="fade-up">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="development">Development</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+        <button class="filter-btn" data-filter="data-ai">Data & AI</button>
+        <button class="filter-btn" data-filter="cloud-cyber">Cloud & Cyber</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="row g-4" id="bootcampGrid">
+
+        <!-- Item 1 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="development" data-aos="fade-up">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category development">Development</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 12 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Full Stack Development</h3>
+            <p class="text-muted flex-grow-1 mb-4">Master both frontend and backend technologies. Build scalable web applications from scratch.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">48</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">8</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="development" data-aos="fade-up" data-aos-delay="100">
+          <div class="glass-panel h-100 d-flex flex-column card-highlight">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category development">Development</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 10 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Frontend Engineering</h3>
+            <p class="text-muted flex-grow-1 mb-4">Create stunning, responsive, and accessible user interfaces using modern JavaScript frameworks.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">40</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">6</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="development" data-aos="fade-up" data-aos-delay="200">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category development">Development</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 12 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Backend Engineering</h3>
+            <p class="text-muted flex-grow-1 mb-4">Build robust APIs, manage databases, and architect scalable server-side systems.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">44</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">7</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="data-ai" data-aos="fade-up">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category data-ai">Data & AI</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 14 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Python & Data Science</h3>
+            <p class="text-muted flex-grow-1 mb-4">Learn statistical analysis, data visualization, and predictive modeling using Python.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">52</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">9</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="data-ai" data-aos="fade-up" data-aos-delay="100">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category data-ai">Data & AI</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 16 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">AI & Machine Learning</h3>
+            <p class="text-muted flex-grow-1 mb-4">Dive deep into algorithms, neural networks, and LLMs. Build intelligent data-driven products.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">60</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">10</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="cloud-cyber" data-aos="fade-up" data-aos-delay="200">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category cloud-cyber">Cloud & Cyber</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 12 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Cloud & DevOps</h3>
+            <p class="text-muted flex-grow-1 mb-4">Learn AWS/GCP, Docker, Kubernetes, and CI/CD pipelines to manage scalable infrastructure.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">48</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">8</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="cloud-cyber" data-aos="fade-up">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category cloud-cyber">Cloud & Cyber</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 14 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">Cybersecurity</h3>
+            <p class="text-muted flex-grow-1 mb-4">Protect systems and networks. Learn ethical hacking, threat analysis, and security engineering.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">50</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">8</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Item 8 -->
+        <div class="col-lg-4 col-md-6 filter-item" data-category="design" data-aos="fade-up" data-aos-delay="100">
+          <div class="glass-panel h-100 d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="badge-category design">Design</span>
+              <span class="badge-duration"><i class="bi bi-clock me-1"></i> 10 Weeks</span>
+            </div>
+            <h3 class="h4 mb-3">UI/UX Product Design</h3>
+            <p class="text-muted flex-grow-1 mb-4">Master user research, wireframing, prototyping, and design systems for modern digital products.</p>
+            <div class="card-meta-grid">
+              <div class="meta-box">
+                <div class="meta-number">40</div>
+                <div class="meta-label">Sessions</div>
+              </div>
+              <div class="meta-box">
+                <div class="meta-number">6</div>
+                <div class="meta-label">Projects</div>
+              </div>
+            </div>
+            <a href="course-details.html" class="btn-details-capsule w-100">View Details &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="section-padding text-center" style="border-top: 1px solid rgba(0, 0, 0, 0.08);">
+    <div class="container">
+      <div class="mb-5" data-aos="fade-up">
+        <span class="eyebrow mb-3" style="color: #ff5e78; text-transform: capitalize; font-family: monospace; letter-spacing: 1px; display: inline-block;">Why Choose Bootcamp?</span>
+        <h2 class="display-5 fw-bold text-dark">Benefits from this bootcamp</h2>
+      </div>
+
+      <div class="row g-4 justify-content-center mt-4">
+        <!-- Benefit 1 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="benefit-card h-100 p-4 p-lg-5 bg-white d-flex flex-column align-items-center text-center">
+            <h4 class="fw-bold mb-4" style="font-size: 1.15rem; color: #111; line-height: 1.4;">Job Guarantee or Money Back</h4>
+            <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.6;">Get 100% job placement support with our hiring partners or your money back, guaranteed!</p>
+          </div>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="benefit-card h-100 p-4 p-lg-5 bg-white d-flex flex-column align-items-center text-center">
+            <h4 class="fw-bold mb-4" style="font-size: 1.15rem; color: #111; line-height: 1.4;">Flexible Payment Options</h4>
+            <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.6;">Choose a payment plan that works for you and start learning without financial worries.</p>
+          </div>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="benefit-card h-100 p-4 p-lg-5 bg-white d-flex flex-column align-items-center text-center">
+            <h4 class="fw-bold mb-4" style="font-size: 1.15rem; color: #111; line-height: 1.4;">High-Quality Coding Bootcamp</h4>
+            <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.6;">Master in-demand coding skills with expert training and hands-on projects for tech careers.</p>
+          </div>
+        </div>
+
+        <!-- Benefit 4 -->
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="benefit-card h-100 p-4 p-lg-5 bg-white d-flex flex-column align-items-center text-center">
+            <h4 class="fw-bold mb-4" style="font-size: 1.15rem; color: #111; line-height: 1.4;">Exclusive Access to Events</h4>
+            <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.6;">Get free access to workshops, events, and extra courses for students and alumni.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Services Section -->
+  <section class="section-padding" style="border-top: 1px solid rgba(0, 0, 0, 0.08);">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="display-5 fw-bold">Comprehensive Services</h2>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up">
+          <div class="service-card d-flex flex-column h-100">
+            <div class="service-icon">
+              <i class="bi bi-card-checklist"></i>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Resume Optimization</h3>
+            <p class="text-muted mb-0">We help you craft a technical resume that bypasses ATS systems and catches the recruiter's eye.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card d-flex flex-column h-100">
+            <div class="service-icon">
+              <i class="bi bi-laptop"></i>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Portfolio Building</h3>
+            <p class="text-muted mb-0">Guidance on selecting, documenting, and presenting your capstone projects effectively.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card d-flex flex-column h-100">
+            <div class="service-icon">
+              <i class="bi bi-person-video"></i>
+            </div>
+            <h3 class="h4 fw-bold mb-3">Mock Interviews</h3>
+            <p class="text-muted mb-0">Practice technical and behavioral interviews with senior engineers from top companies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Roadmap Section -->
+  <section class="section-padding" style="border-top: 1px solid rgba(0, 0, 0, 0.08);">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="eyebrow" style="color: #ff5e78; text-transform: uppercase; font-weight: 600; letter-spacing: 2px;">Your Path</span>
+        <h2 class="display-5 fw-bold">Your Career Roadmap</h2>
+      </div>
+
+      <div class="roadmap-container">
+        <!-- Progress Line -->
+        <div class="roadmap-line">
+          <div class="roadmap-progress"></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="roadmap-step row align-items-center gs-reveal">
+          <div class="col-md-5 text-md-end roadmap-content">
+            <h3 class="fw-bold">01 Learn</h3>
+            <p class="text-muted">Master the technical fundamentals through our rigorous, project-based curriculum.</p>
+          </div>
+          <div class="col-md-2 text-center position-relative">
+            <div class="roadmap-circle">
+              <i class="bi bi-book"></i>
+            </div>
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="roadmap-step row align-items-center gs-reveal">
+          <div class="col-md-5"></div>
+          <div class="col-md-2 text-center position-relative">
+            <div class="roadmap-circle">
+              <i class="bi bi-tools"></i>
+            </div>
+          </div>
+          <div class="col-md-5 roadmap-content">
+            <h3 class="fw-bold">02 Build</h3>
+            <p class="text-muted">Develop a strong portfolio of real-world projects and a capstone application.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="roadmap-step row align-items-center gs-reveal">
+          <div class="col-md-5 text-md-end roadmap-content">
+            <h3 class="fw-bold">03 Prepare</h3>
+            <p class="text-muted">Resume optimization, LinkedIn profile reviews, and portfolio polish.</p>
+          </div>
+          <div class="col-md-2 text-center position-relative">
+            <div class="roadmap-circle">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="roadmap-step row align-items-center gs-reveal">
+          <div class="col-md-5"></div>
+          <div class="col-md-2 text-center position-relative">
+            <div class="roadmap-circle">
+              <i class="bi bi-mic"></i>
+            </div>
+          </div>
+          <div class="col-md-5 roadmap-content">
+            <h3 class="fw-bold">04 Interview</h3>
+            <p class="text-muted">Rigorous technical mock interviews and behavioral interview coaching.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="roadmap-step row align-items-center gs-reveal" style="margin-bottom: 0;">
+          <div class="col-md-5 text-md-end roadmap-content">
+            <h3 class="fw-bold text-accent">05 Get Hired</h3>
+            <p class="text-muted">Direct introductions to our network of 50+ hiring partners and negotiation support.</p>
+          </div>
+          <div class="col-md-2 text-center position-relative">
+            <div class="roadmap-circle" style="background: #ff5e78; border-color: #ff5e78; color: #fff;">
+              <i class="bi bi-briefcase"></i>
+            </div>
+          </div>
+          <div class="col-md-5"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Ready to Join CTA Section -->
+  <section class="section-padding pt-0 pb-5" data-aos="fade-up">
+    <div class="container">
+      <div class="cta-banner text-center">
+        <h2 class="display-5 fw-bold mb-3">Ready to join our community?</h2>
+        <p class="text-muted mb-4 fs-5">Take the first step towards a fulfilling career in technology.</p>
+        <a href="register.html" class="btn btn-pink-cta">Explore Our Bootcamps &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/pages.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.triggerHeroAnimation) window.triggerHeroAnimation();
+
+      // GSAP ScrollTrigger for Roadmap
+      gsap.registerPlugin(ScrollTrigger);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".roadmap-container",
+          start: "top 60%",
+          end: "bottom 80%",
+          scrub: 1
+        }
+      });
+
+      tl.to(".roadmap-progress", {
+        height: "100%",
+        ease: "none"
+      });
+
+      // Reveal items and add active class to steps
+      gsap.utils.toArray('.gs-reveal').forEach(function(elem) {
+        ScrollTrigger.create({
+          trigger: elem,
+          start: "top 80%",
+          onEnter: function() {
+            gsap.fromTo(elem, 
+              {y: 50, opacity: 0}, 
+              {y: 0, opacity: 1, duration: 0.8, ease: "power2.out"}
+            );
+            elem.classList.add('active');
+          },
+          onLeaveBack: function() {
+            elem.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
+  <script src="js/layout.js"></script>
+</body>
+
+</html>

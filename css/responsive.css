@@ -1,0 +1,122 @@
+/* ==========================================================================
+   STACKLY - Responsive Styles
+   ========================================================================== */
+
+/* 1920px & 1440px - Handled mostly by base container max-widths */
+
+/* ==========================================================================
+   Tablet (max-width: 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  html {
+    font-size: 15px; /* Slight scale down */
+  }
+
+  .navbar .nav-link {
+    font-size: 0.8rem;
+  }
+  
+  .navbar-nav {
+    gap: 1.5rem;
+  }
+  
+  /* Sections */
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  /* Grid layouts will shift to 2 columns via Bootstrap rows usually, 
+     but adding explicit overrides where needed */
+}
+
+/* ==========================================================================
+   Tablet Portrait (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  /* Navbar Mobile Mode */
+  .navbar-nav, .navbar-actions .btn-outline {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  /* Footer */
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  /* Form Layouts */
+  .auth-layout {
+    flex-direction: column;
+  }
+  
+  .auth-visual {
+    display: none; /* Hide visual on mobile */
+  }
+  
+  .auth-form-container {
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile (max-width: 430px, 414px, 390px, 375px, 360px)
+   ========================================================================== */
+@media (max-width: 576px) {
+  .section-padding {
+    padding: 4rem 0;
+  }
+  
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  .btn-primary, .btn-outline {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-group-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .glass-panel {
+    padding: 1.5rem;
+  }
+}
+
+/* Responsive iframe wrapper */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}

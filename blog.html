@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights & Articles - STACKLY</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    body { background-color: #f4f6fa; color: #333; }
+    
+    .blog-page-header { padding-top: 10rem; padding-bottom: 2rem; }
+    
+    .blog-card-light {
+      background-color: #000;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    .blog-card-light:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transform: translateY(-5px);
+    }
+    
+    .blog-card-light img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .sidebar-widget {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .recent-post-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    
+    .tag-btn {
+      display: inline-block;
+      padding: 6px 14px;
+      margin: 0 6px 10px 0;
+      background-color: #f1f3f5;
+      color: #555;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      border: 1px solid #eee;
+      transition: all 0.2s ease;
+    }
+    .tag-btn:hover, .tag-btn.active {
+      background-color: var(--brand-pink, #ff5e78);
+      color: #fff;
+      border-color: var(--brand-pink, #ff5e78);
+    }
+    
+    .pagination-custom { display: flex; list-style: none; padding: 0; margin: 40px 0; gap: 8px; flex-wrap: wrap; }
+    .page-item .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #e9ecef;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .page-item.active .page-link, .page-item .page-link:hover {
+      background-color: var(--brand-pink, #ff5e78);
+      color: #fff;
+      border-color: var(--brand-pink, #ff5e78);
+    }
+    
+    .popular-card {
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .popular-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <div class="page-transition-overlay"></div>
+  <div id="navbar-container"></div>
+
+  <!-- Header Banner -->
+  <section class="blog-page-header text-center" style="background-color: #6b5ce7; padding-top: 10rem; padding-bottom: 5rem;">
+    <div class="container gsap-fade-up">
+      <h1 class="fw-bold mb-0" style="font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -1px; line-height: 1.2;">
+        <span class="d-block text-white" data-aos="fade-right" data-aos-delay="100">Blog.</span>
+        <span class="d-block" style="color: var(--brand-pink, #ff5e78);" data-aos="fade-left" data-aos-delay="300">Insights & Articles.</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- Controls Section -->
+  <section class="py-3 border-bottom" style="background-color: #fff;">
+    <div class="container">
+      <div class="d-flex justify-content-end align-items-center flex-wrap gap-3 gsap-fade-right">
+        <div class="d-flex gap-2">
+          <button class="btn text-white rounded-1 control-btn active" style="background-color: var(--brand-pink, #ff5e78); border-color: var(--brand-pink, #ff5e78);"><i class="bi bi-grid-fill"></i></button>
+          <button class="btn btn-light rounded-1 border control-btn"><i class="bi bi-list"></i></button>
+        </div>
+        <select class="form-select text-white rounded-1 fw-bold" style="width: auto; background-color: var(--brand-pink, #ff5e78); border-color: var(--brand-pink, #ff5e78);">
+          <option>Newest</option>
+          <option>Popular</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-4">
+    <div class="container">
+      <div class="row g-4">
+        
+        <!-- Left: Main Grid -->
+        <div class="col-lg-9">
+          <div class="row g-4">
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_1.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_2.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_3.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_4.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_5.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_6.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_7.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_8.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 gsap-fade-up">
+              <div class="blog-card-light" style="background-color: #000;">
+                <img src="assets/images/blog_grid_9.webp" alt="Blog Image">
+                <div class="p-4 d-flex flex-column h-100">
+                  <h5 class="fw-bold mb-3 text-white">10 amazing web of demos Developers</h5>
+                  <p class="text-white fs-7 mb-4 flex-grow-1 fw-medium">And meat blessed void a fruit gathered waters.</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                    <span class="text-muted fs-7">By David Smith</span>
+                    <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">11 Jan 20</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          
+          <!-- Pagination -->
+          <ul class="pagination-custom gsap-fade-up">
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item"><a class="page-link" href="#">7</a></li>
+            <li class="page-item"><a class="page-link" href="#">8</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul>
+        </div>
+        
+        <!-- Right: Sidebar -->
+        <div class="col-lg-3 gsap-fade-left">
+          
+          <!-- Recent Posts -->
+          <div class="sidebar-widget">
+            <h5 class="fw-bold mb-4 text-dark border-bottom pb-2">Recent Posts</h5>
+            <div class="d-flex flex-column gap-4">
+
+              <div class="d-flex gap-3 align-items-center">
+                <img src="assets/images/blog_side_1.webp" alt="Recent" class="recent-post-img flex-shrink-0">
+                <div>
+                  <h6 class="fw-bold mb-1 fs-7 text-dark" style="line-height: 1.3;">Writing A Simple App</h6>
+                  <p class="text-muted fs-7 mb-0">By Steve Krug</p>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 align-items-center">
+                <img src="assets/images/blog_side_2.webp" alt="Recent" class="recent-post-img flex-shrink-0">
+                <div>
+                  <h6 class="fw-bold mb-1 fs-7 text-dark" style="line-height: 1.3;">Writing A Simple App</h6>
+                  <p class="text-muted fs-7 mb-0">By Steve Krug</p>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 align-items-center">
+                <img src="assets/images/blog_side_3.webp" alt="Recent" class="recent-post-img flex-shrink-0">
+                <div>
+                  <h6 class="fw-bold mb-1 fs-7 text-dark" style="line-height: 1.3;">Writing A Simple App</h6>
+                  <p class="text-muted fs-7 mb-0">By Steve Krug</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          
+          <!-- Tags -->
+          <div class="sidebar-widget">
+            <h5 class="fw-bold mb-4 text-dark border-bottom pb-2">Tags</h5>
+            <div class="d-flex flex-wrap">
+              <button class="tag-btn active" data-aos="zoom-in" data-aos-delay="50">#Webdesign</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="100">#Mobileapp</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="150">#Design</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="200">#Hack</button>
+              <button class="tag-btn">#Webdesign</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="200">#Hack</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="150">#Design</button>
+              <button class="tag-btn" data-aos="zoom-in" data-aos-delay="200">#Hack</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Most Popular Posts -->
+  <section class="py-5 bg-white">
+    <div class="container py-4">
+      <h2 class="fw-bold mb-4 text-dark gsap-fade-up">Most Popular Posts</h2>
+      <div class="row g-4">
+
+        <div class="col-lg-4 col-md-6 gsap-fade-up">
+          <div class="popular-card h-100 d-flex flex-column">
+            <img src="assets/images/blog_popular_1.webp" alt="Popular">
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <h4 class="fw-bold mb-3 text-dark">How to Create and Use Bash Scripts</h4>
+              <p class="text-dark fs-7 mb-4 flex-grow-1 fw-medium">Replenish him third creature and meat blessed void a fruit gathered you're, they're two waters.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                <span class="text-dark fs-7 fw-medium">By Steve Krug</span>
+                <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">12 Lecturer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 gsap-fade-up">
+          <div class="popular-card h-100 d-flex flex-column">
+            <img src="assets/images/blog_popular_2.webp" alt="Popular">
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <h4 class="fw-bold mb-3 text-dark">How to Create and Use Bash Scripts</h4>
+              <p class="text-dark fs-7 mb-4 flex-grow-1 fw-medium">Replenish him third creature and meat blessed void a fruit gathered you're, they're two waters.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                <span class="text-dark fs-7 fw-medium">By Steve Krug</span>
+                <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">12 Lecturer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 gsap-fade-up">
+          <div class="popular-card h-100 d-flex flex-column">
+            <img src="assets/images/blog_popular_3.webp" alt="Popular">
+            <div class="p-4 d-flex flex-column flex-grow-1">
+              <h4 class="fw-bold mb-3 text-dark">How to Create and Use Bash Scripts</h4>
+              <p class="text-dark fs-7 mb-4 flex-grow-1 fw-medium">Replenish him third creature and meat blessed void a fruit gathered you're, they're two waters.</p>
+              <div class="d-flex justify-content-between align-items-center mt-auto border-top pt-3">
+                <span class="text-dark fs-7 fw-medium">By Steve Krug</span>
+                <span class="fw-bold fs-7" style="color: var(--brand-pink, #ff5e78);">12 Lecturer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Dark Theme Blog Section Styles */
+    .dark-blog-section {
+      background-color: #f8f9fa;
+      color: #fff;
+    }
+    .dark-blog-card {
+      background: transparent;
+      border: none;
+      margin-bottom: 2rem;
+    }
+    .dark-blog-img-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      aspect-ratio: 16/9;
+    }
+    .dark-blog-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .dark-blog-card:hover .dark-blog-img-wrapper img {
+      transform: scale(1.05);
+    }
+    .dark-blog-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: var(--brand-pink, #ff5e78); 
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      border-radius: 30px;
+      z-index: 2;
+    }
+    .dark-blog-title {
+      color: #000;
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      transition: color 0.3s ease;
+    }
+    .dark-blog-card:hover .dark-blog-title {
+      color: var(--brand-pink, #ff5e78); 
+    }
+    .dark-blog-excerpt {
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .dark-blog-date {
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .dark-blog-read-btn {
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #000;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .dark-blog-card:hover .dark-blog-read-btn {
+      color: var(--brand-pink, #ff5e78);
+      border-bottom-color: var(--brand-pink, #ff5e78);
+    }
+    .btn-outline-dark {
+      color: #000;
+      border: 1px solid #000;
+      background: transparent;
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-dark:hover {
+      background: var(--brand-pink, #ff5e78);
+      border-color: var(--brand-pink, #ff5e78);
+      color: #fff;
+    }
+    .control-btn:not(.active):hover {
+      background-color: var(--brand-pink, #ff5e78) !important;
+      border-color: var(--brand-pink, #ff5e78) !important;
+      color: #fff !important;
+    }
+  </style>
+
+  <!-- Featured Dark Blog Section -->
+  <section class="dark-blog-section py-5">
+    <div class="container py-5">
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-7 gsap-fade-right">
+          <span style="color: var(--brand-pink, #ff5e78); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 1rem;">Blog & News</span>
+          <h2 class="fw-bold mb-0 text-dark" style="font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.1;">Recode Bootcamp News<br>& Insights</h2>
+        </div>
+        <div class="col-lg-4 offset-lg-1 mt-4 mt-lg-0 gsap-fade-left">
+          <p class="text-dark mb-4 fs-6" style="opacity: 0.9;">Stay updated with coding tips, success stories, and bootcamp news!</p>
+          <a href="#" class="btn btn-outline-dark">View All Post</a>
+        </div>
+      </div>
+      
+      <div class="row g-5">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge">Coding Tips</span>
+              <img src="assets/images/dark_blog_1.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 17, 2025</span>
+            <h3 class="dark-blog-title">Master JavaScript in 30 Days: A Complete Guide</h3>
+            <p class="dark-blog-excerpt">Discover effective strategies to learn JavaScript in just 30 days! Our step-by-step guide provides resources.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge">Bootcamp Updates</span>
+              <img src="assets/images/dark_blog_2.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 12, 2025</span>
+            <h3 class="dark-blog-title">Recode Bootcamp Launches New React Course!</h3>
+            <p class="dark-blog-excerpt">We're excited to announce our brand-new React course! Designed to help you build dynamic web applications, this course is perfect for front-end developers looking to enhance their skills.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge">Success Stories</span>
+              <img src="assets/images/dark_blog_3.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 10, 2025</span>
+            <h3 class="dark-blog-title">From Beginner to Developer: Anna's Inspiring Journey to Success</h3>
+            <p class="dark-blog-excerpt">Meet Anna, one of our star graduates who went from complete beginner to a software engineer at a top tech company. Read about her transformative journey and how Recode Bootcamp helped her achieve her dreams.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge">Tech Trends</span>
+              <img src="assets/images/dark_blog_4.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 05, 2025</span>
+            <h3 class="dark-blog-title">Top 5 Programming Languages to Learn in 2025</h3>
+            <p class="dark-blog-excerpt">Stay ahead of the curve by learning the most in-demand programming languages this year. From Python to Rust, find out which languages are shaping the future of tech.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge" style="background-color: var(--brand-pink, #ff5e78);">Career Support</span>
+              <img src="assets/images/dark_blog_2.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 03, 2025</span>
+            <h3 class="dark-blog-title">How Recode Bootcamp Helps You Land Your Dream Job</h3>
+            <p class="dark-blog-excerpt">Our job support services are here to help you succeed in your tech career. From resume building to job interviews, find out how we support you every step of the way.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+          <div class="dark-blog-card">
+            <div class="dark-blog-img-wrapper">
+              <span class="dark-blog-badge" style="background-color: var(--brand-pink, #ff5e78);">Bootcamp Updates</span>
+              <img src="assets/images/dark_blog_5.webp" alt="Blog Post">
+            </div>
+            <span class="dark-blog-date">January 01, 2025</span>
+            <h3 class="dark-blog-title">Recode Bootcamp Expands to New Locations</h3>
+            <p class="dark-blog-excerpt">We're growing! Recode Bootcamp is now available at additional campuses and online. Learn more about our new locations and how you can join our expanding community.</p>
+            <a href="#" class="dark-blog-read-btn">Read Post</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .cta-blog-wrapper {
+      padding: 60px 0;
+      background-color: #f8f9fa;
+    }
+    .cta-blog-card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.03);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .cta-blog-card::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(255, 94, 120, 0.15) 0%, rgba(255, 94, 120, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .cta-blog-card::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      right: -50px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, rgba(0, 212, 255, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .cta-blog-content {
+      position: relative;
+      z-index: 1;
+    }
+    .cta-blog-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 15px;
+    }
+    .cta-blog-desc {
+      color: #555;
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+    }
+    .cta-blog-btn {
+      background-color: var(--brand-pink, #ff5e78);
+      color: #fff;
+      padding: 12px 32px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    .cta-blog-btn:hover {
+      background-color: #e6556c;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <!-- CTA Section -->
+  <section class="cta-blog-wrapper">
+    <div class="container gsap-fade-up">
+      <div class="cta-blog-card">
+        <div class="cta-blog-content">
+          <h2 class="cta-blog-title">Ready to join our community?</h2>
+          <p class="cta-blog-desc">Take the first step towards a fulfilling career in technology.</p>
+          <a href="#" class="cta-blog-btn">Explore Our Bootcamps &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/layout.js"></script>
+</body>
+</html>

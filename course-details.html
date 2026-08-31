@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Details - STACKLY</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .course-hero {
+      padding: 10rem 0 5rem;
+      background: radial-gradient(circle at right, rgba(255, 94, 0, 0.1), transparent 50%),
+                  radial-gradient(circle at left, rgba(255, 138, 0, 0.05), transparent 50%);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .curriculum-module {
+      border-left: 2px solid var(--border-color);
+      padding-left: 2rem;
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .curriculum-module::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent-primary);
+    }
+    .tech-stack-icon {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <div class="page-transition-overlay"></div>
+
+  <div id="navbar-container"></div>
+
+  
+        <div class="col-lg-5 hero-visual-animate">
+          <div class="glass-panel p-4 text-center">
+            <h4 class="mb-4">Course Highlights</h4>
+            <ul class="list-unstyled text-start mb-0">
+              <li class="mb-3 d-flex align-items-center gap-3"><i class="bi bi-clock text-accent fs-4"></i> <span>12 Weeks, Full-time or Part-time</span></li>
+              <li class="mb-3 d-flex align-items-center gap-3"><i class="bi bi-camera-video text-accent fs-4"></i> <span>48 Live Interactive Sessions</span></li>
+              <li class="mb-3 d-flex align-items-center gap-3"><i class="bi bi-briefcase text-accent fs-4"></i> <span>8 Real-world Portfolio Projects</span></li>
+              <li class="mb-3 d-flex align-items-center gap-3"><i class="bi bi-people text-accent fs-4"></i> <span>1-on-1 Expert Mentorship</span></li>
+              <li class="d-flex align-items-center gap-3"><i class="bi bi-graph-up text-accent fs-4"></i> <span>Career Placement Support</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo iframe -->
+  <section class="section-padding bg-surface">
+    <div class="container text-center">
+      <h3 class="mb-5 fw-bold" data-aos="fade-up">Try our interactive coding environment</h3>
+      <div class="iframe-container" style="padding-top: 50%; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5);" data-aos="zoom-in">
+        <!-- Using a placeholder embed for coding demo -->
+        <iframe src="https://stackblitz.com/edit/web-platform-u6rm7p?embed=1&file=index.html&hideExplorer=1&view=editor" title="Coding Demo"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content (Curriculum, Tech, Mentors) -->
+  <section class="section-padding" id="curriculum">
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-lg-8" data-aos="fade-right">
+          <h2 class="mb-5 fw-bold">Curriculum Overview</h2>
+          
+          <div class="curriculum-module">
+            <h4 class="text-accent mb-2">Module 1: Web Fundamentals</h4>
+            <p class="text-muted">Master HTML5, CSS3, and responsive design principles. Build your first static websites and learn version control with Git and GitHub.</p>
+          </div>
+          
+          <div class="curriculum-module">
+            <h4 class="text-accent mb-2">Module 2: Advanced JavaScript</h4>
+            <p class="text-muted">Deep dive into ES6+, asynchronous programming, DOM manipulation, and object-oriented principles in JavaScript.</p>
+          </div>
+          
+          <div class="curriculum-module">
+            <h4 class="text-accent mb-2">Module 3: Frontend Frameworks (React)</h4>
+            <p class="text-muted">Learn to build complex single-page applications using React. Understand hooks, state management, and component architecture.</p>
+          </div>
+          
+          <div class="curriculum-module">
+            <h4 class="text-accent mb-2">Module 4: Backend & APIs (Node.js)</h4>
+            <p class="text-muted">Build robust RESTful APIs using Node.js and Express. Handle authentication, authorization, and server-side logic.</p>
+          </div>
+          
+          <div class="curriculum-module border-0 mb-0 pb-0">
+            <h4 class="text-accent mb-2">Module 5: Databases & Deployment</h4>
+            <p class="text-muted">Work with MongoDB and PostgreSQL. Deploy your full-stack applications to AWS and Vercel.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mt-5 mt-lg-0" data-aos="fade-left">
+          <div class="glass-panel mb-4">
+            <h4 class="mb-4">Technologies</h4>
+            <div class="d-flex flex-wrap gap-3">
+              <div class="tech-stack-icon"><i class="bi bi-filetype-html"></i></div>
+              <div class="tech-stack-icon"><i class="bi bi-filetype-css"></i></div>
+              <div class="tech-stack-icon"><i class="bi bi-filetype-js"></i></div>
+              <div class="tech-stack-icon"><i class="bi bi-database"></i></div>
+              <div class="tech-stack-icon"><i class="bi bi-git"></i></div>
+              <div class="tech-stack-icon"><i class="bi bi-terminal"></i></div>
+            </div>
+          </div>
+          
+          <div class="glass-panel">
+            <h4 class="mb-4">Lead Mentor</h4>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/img-8.webp" class="rounded-circle" width="60" alt="Mentor">
+              <div>
+                <h5 class="mb-0">David Chen</h5>
+                <p class="text-accent fs-7 mb-0">Ex-Google Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section-padding bg-surface text-center">
+    <div class="container" data-aos="zoom-in">
+      <h2 class="display-5 fw-bold mb-4">Ready to start?</h2>
+      <a href="register.html" class="btn-primary btn-lg">Enroll in this Bootcamp &rarr;</a>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.triggerHeroAnimation) window.triggerHeroAnimation();
+    });
+  </script>
+  <script src="js/layout.js"></script>
+</body>
+</html>

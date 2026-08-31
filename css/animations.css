@@ -1,0 +1,124 @@
+/* ==========================================================================
+   STACKLY - Animations
+   ========================================================================== */
+
+/* Keyframes */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 138, 0, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 138, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 138, 0, 0); }
+}
+
+@keyframes drawLine {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Utility Animation Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite 3s;
+}
+
+.animate-pulse {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Page Transition States */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* AOS Overrides for smoother feel */
+[data-aos] {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Background Gradients Animation */
+.bg-gradient-animated {
+  background: radial-gradient(circle at top right, rgba(255, 94, 0, 0.15), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(255, 138, 0, 0.1), transparent 40%);
+  background-size: 200% 200%;
+  animation: moveGradient 15s ease infinite alternate;
+}
+
+@keyframes moveGradient {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-dark);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.6s ease;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  position: absolute;
+  z-index: 1;
+}
+
+.loader-spinner {
+  width: 100px;
+  height: 100px;
+  border: 4px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  border-top-color: var(--accent-primary);
+  border-left-color: var(--accent-primary);
+  animation: spin 1s linear infinite;
+  z-index: 2;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Support - STACKLY</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Career Roadmap Line */
+    .roadmap-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: var(--border-color);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .roadmap-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--accent-primary);
+      height: 0;
+      /* GSAP will animate this */
+      z-index: 2;
+    }
+
+    .roadmap-step {
+      position: relative;
+      z-index: 3;
+      margin-bottom: 8rem;
+    }
+
+    .roadmap-number {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-dark);
+      border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(255, 138, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .roadmap-line {
+        left: 30px;
+      }
+
+      .roadmap-number {
+        margin: 0;
+      }
+
+      .roadmap-content {
+        margin-left: 80px;
+        text-align: left !important;
+      }
+
+      .text-md-end {
+        text-align: left !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <div class="page-transition-overlay"></div>
+
+  <div id="navbar-container"></div>
+
+
+
+  <div class="roadmap-container">
+
+    <!-- Step 1 -->
+    <div class="roadmap-step row align-items-center gs-reveal">
+      <div class="col-md-5 text-md-end roadmap-content">
+        <h3 class="fw-bold">01. Learn & Build</h3>
+        <p class="text-muted">Master the technical skills through hands-on projects and pair programming.</p>
+      </div>
+      <div class="col-md-2 text-center d-none d-md-block">
+        <div class="roadmap-number">1</div>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="roadmap-step row align-items-center gs-reveal">
+      <div class="col-md-5"></div>
+      <div class="col-md-2 text-center d-none d-md-block">
+        <div class="roadmap-number">2</div>
+      </div>
+      <div class="col-md-5 roadmap-content">
+        <h3 class="fw-bold">02. Portfolio Optimization</h3>
+        <p class="text-muted">Refine your GitHub and portfolio to showcase clean architecture and problem-solving
+          skills.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="roadmap-step row align-items-center gs-reveal">
+      <div class="col-md-5 text-md-end roadmap-content">
+        <h3 class="fw-bold">03. Resume & Personal Brand</h3>
+        <p class="text-muted">Work with our career coaches to craft a standout resume and optimize your LinkedIn
+          profile.</p>
+      </div>
+      <div class="col-md-2 text-center d-none d-md-block">
+        <div class="roadmap-number">3</div>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="roadmap-step row align-items-center gs-reveal">
+      <div class="col-md-5"></div>
+      <div class="col-md-2 text-center d-none d-md-block">
+        <div class="roadmap-number">4</div>
+      </div>
+      <div class="col-md-5 roadmap-content">
+        <h3 class="fw-bold">04. Mock Interviews</h3>
+        <p class="text-muted">Practice technical whiteboarding and behavioral questions with senior industry engineers.
+        </p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="roadmap-step row align-items-center gs-reveal" style="margin-bottom: 0;">
+      <div class="col-md-5 text-md-end roadmap-content">
+        <h3 class="fw-bold text-accent">05. Get Hired</h3>
+        <p class="text-muted">Tap into our network of 50+ hiring partners and negotiate your first tech salary.</p>
+      </div>
+      <div class="col-md-2 text-center d-none d-md-block">
+        <div class="roadmap-number bg-accent text-dark"
+          style="background: var(--accent-primary); border-color: var(--accent-primary);">5</div>
+      </div>
+      <div class="col-md-5"></div>
+    </div>
+
+  </div>
+  </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section-padding text-center">
+    <div class="container" data-aos="zoom-in">
+      <h2 class="display-5 fw-bold mb-4">Your future starts here.</h2>
+      <a href="register.html" class="btn-primary btn-lg">Apply Today &rarr;</a>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.triggerHeroAnimation) window.triggerHeroAnimation();
+
+      // GSAP ScrollTrigger for Roadmap
+      gsap.registerPlugin(ScrollTrigger);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".roadmap-container",
+          start: "top 60%",
+          end: "bottom 80%",
+          scrub: 1
+        }
+      });
+
+      tl.to(".roadmap-progress", {
+        height: "100%",
+        ease: "none"
+      });
+
+      // Reveal items
+      gsap.utils.toArray('.gs-reveal').forEach(function (elem) {
+        ScrollTrigger.create({
+          trigger: elem,
+          start: "top 80%",
+          onEnter: function () {
+            gsap.fromTo(elem,
+              { y: 50, opacity: 0 },
+              { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+            );
+          }
+        });
+      });
+    });
+  </script>
+  <script src="js/layout.js"></script>
+</body>
+
+</html>

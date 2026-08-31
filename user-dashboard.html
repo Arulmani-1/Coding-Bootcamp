@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard - STACKLY</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: rgba(0, 0, 0, 0.2);
+      border-right: 1px solid var(--border-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+    }
+
+    .sidebar-link.active {
+      background: rgba(255, 94, 120, 0.1);
+      color: var(--accent-primary);
+      border-left: 3px solid var(--accent-primary);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .main-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dashboard-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      margin: 0;
+      color: var(--accent-primary);
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Course Progress */
+    .course-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .course-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 220px;
+        padding: 1.5rem 0.5rem;
+      }
+      .sidebar-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Hide page scrollbar on mobile */
+      body::-webkit-scrollbar, html::-webkit-scrollbar {
+        display: none;
+      }
+      body, html {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        z-index: 1050;
+        background: var(--bg-darker);
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+      }
+      
+      .sidebar.show {
+        left: 0;
+      }
+      
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+      }
+
+      .sidebar-overlay.show {
+        display: block;
+      }
+
+      /* Make full page scrollable on mobile */
+      .main-area {
+        max-height: none !important;
+        overflow: visible !important;
+        width: 100%;
+      }
+      
+      .main-content {
+        padding: 1.25rem !important;
+        overflow-y: visible !important;
+      }
+
+      .dashboard-navbar {
+        padding: 1rem !important;
+      }
+
+      .nav-right {
+        /* Ensure it remains aligned correctly without the image */
+      }
+
+      .stat-card {
+        padding: 1.25rem;
+      }
+
+      .stat-card h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-brand mb-4 px-3 d-flex align-items-center gap-2" style="cursor: pointer;" onclick="switchSection('learning', document.querySelector('.sidebar-link'))">
+        <img src="assets/images/logo-pink.webp" alt="STACKLY" style="height: 30px;">
+      </div>
+
+      <div class="mb-4 px-3">
+        <div class="d-flex align-items-center gap-3">
+          <div>
+            <span class="text-primary">User Portal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-link active" onclick="switchSection('learning', this)">
+        <i class="bi bi-journal-code"></i> My Learning
+      </div>
+      <div class="sidebar-link" onclick="switchSection('achievements', this)">
+        <i class="bi bi-trophy"></i> Achievements
+      </div>
+      <div class="sidebar-link" onclick="switchSection('schedule', this)">
+        <i class="bi bi-calendar3"></i> Schedule
+      </div>
+      <div class="sidebar-link" onclick="switchSection('profile', this)">
+        <i class="bi bi-person-gear"></i> Profile
+      </div>
+      <div class="mt-auto">
+        <a href="login.html" class="sidebar-link text-danger mt-4">
+          <i class="bi bi-box-arrow-left"></i> Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-area d-flex flex-column flex-grow-1" style="max-height: 100vh; overflow: hidden;">
+
+      <!-- Dashboard Navbar -->
+      <header class="dashboard-navbar d-flex justify-content-between align-items-center px-4 py-3"
+        style="background: rgba(0,0,0,0.15); border-bottom: 1px solid var(--border-color);">
+        <div class="nav-left d-flex align-items-center gap-3">
+          <button class="btn btn-sm btn-outline-light d-md-none" onclick="toggleSidebar()">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <span id="welcomeName" class="fs-5 fw-bold font-display text-white d-none d-md-inline">Welcome Back, Demo</span>
+        </div>
+        <div class="nav-right text-muted small d-flex align-items-center gap-2">
+          <span id="navEmail">demo@gmail.com</span>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <div class="main-content" style="flex: 1; padding: 2rem; overflow-y: auto;">
+
+        <!-- My Learning Section -->
+        <div id="learning" class="dashboard-section active">
+          <h2 class="mb-4">My Learning Path</h2>
+
+          <div class="row g-4 mb-5">
+            <div class="col-md-4">
+              <div class="stat-card">
+                <i class="bi bi-clock-history fs-4 text-muted"></i>
+                <h3>45h</h3>
+                <p>Hours Learned</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card">
+                <i class="bi bi-check2-all fs-4 text-muted"></i>
+                <h3>12</h3>
+                <p>Modules Completed</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card">
+                <i class="bi bi-fire fs-4 text-muted"></i>
+                <h3>7</h3>
+                <p>Day Streak</p>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="mb-3">Enrolled Courses</h4>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="course-card">
+                <img src="assets/images/img-16.webp" alt="Course Cover">
+                <div class="course-body">
+                  <span class="badge bg-primary w-25 mb-2">Frontend</span>
+                  <h5>React Advanced Patterns</h5>
+                  <p class="text-muted small mb-3">Master modern React and state management.</p>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between text-muted small mb-1">
+                      <span>Progress</span>
+                      <span>75%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar bg-success" style="width: 75%"></div>
+                    </div>
+                    <button class="btn-primary w-100 mt-4">Continue Learning</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="course-card">
+                <div
+                  style="background: linear-gradient(45deg, var(--bg-darker), var(--accent-secondary)); height: 150px;"
+                  class="d-flex align-items-center justify-content-center">
+                  <i class="bi bi-filetype-py fs-1 text-white"></i>
+                </div>
+                <div class="course-body">
+                  <span class="badge bg-warning text-dark w-25 mb-2">Backend</span>
+                  <h5>Python API Development</h5>
+                  <p class="text-muted small mb-3">Build robust REST APIs using FastAPI.</p>
+                  <div class="mt-auto">
+                    <div class="d-flex justify-content-between text-muted small mb-1">
+                      <span>Progress</span>
+                      <span>30%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                      <div class="progress-bar bg-warning" style="width: 30%"></div>
+                    </div>
+                    <button class="btn-primary w-100 mt-4">Continue Learning</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div id="achievements" class="dashboard-section">
+          <h2 class="mb-4">My Achievements</h2>
+          <div class="glass-panel text-center py-5">
+            <i class="bi bi-award text-warning" style="font-size: 5rem;"></i>
+            <h3 class="mt-3">React Master</h3>
+            <p class="text-muted w-50 mx-auto">You've successfully completed 5+ projects using React and scored over 90%
+              in assessments.</p>
+            <button class="btn-outline-pink mt-3">Download Certificate</button>
+          </div>
+
+          <h4 class="mt-5 mb-4">Earned Badges</h4>
+          <div class="row g-3 text-center">
+            <div class="col-md-3">
+              <div class="glass-panel p-4">
+                <i class="bi bi-lightning-fill text-warning fs-1"></i>
+                <h6 class="mt-2">Fast Learner</h6>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="glass-panel p-4">
+                <i class="bi bi-bug-fill text-danger fs-1"></i>
+                <h6 class="mt-2">Bug Squasher</h6>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="glass-panel p-4">
+                <i class="bi bi-chat-heart text-info fs-1"></i>
+                <h6 class="mt-2">Top Helper</h6>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="glass-panel p-4 opacity-50" title="Not earned yet">
+                <i class="bi bi-star-fill text-secondary fs-1"></i>
+                <h6 class="mt-2">Course Completion</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Section -->
+        <div id="schedule" class="dashboard-section">
+          <h2 class="mb-4">Upcoming Classes & Deadlines</h2>
+          <div class="glass-panel">
+            <div class="list-group list-group-flush bg-transparent">
+              <div
+                class="list-group-item bg-transparent text-white border-secondary py-3 d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="mb-1">React State Management Live Session</h5>
+                  <small class="text-muted"><i class="bi bi-clock me-1"></i> Today, 6:00 PM - 8:00 PM</small>
+                </div>
+                <button class="btn btn-sm btn-primary">Join Zoom</button>
+              </div>
+              <div
+                class="list-group-item bg-transparent text-white border-secondary py-3 d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="mb-1">Project Submission: E-commerce UI</h5>
+                  <small class="text-muted"><i class="bi bi-calendar me-1"></i> Tomorrow, 11:59 PM</small>
+                </div>
+                <span class="badge bg-danger">Deadline</span>
+              </div>
+              <div
+                class="list-group-item bg-transparent text-white border-secondary py-3 d-flex justify-content-between align-items-center">
+                <div>
+                  <h5 class="mb-1">1:1 Mentorship Call</h5>
+                  <small class="text-muted"><i class="bi bi-clock me-1"></i> Friday, 10:00 AM</small>
+                </div>
+                <button class="btn btn-sm btn-outline-light">Reschedule</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile" class="dashboard-section">
+          <h2 class="mb-4">Profile Settings</h2>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="glass-panel">
+                <form>
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label class="form-label">First Name</label>
+                      <input type="text" class="form-control" value="Student">
+                    </div>
+                    <div class="col">
+                      <label class="form-label">Last Name</label>
+                      <input type="text" class="form-control" value="Name">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" value="student@example.com" readonly>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label">Bio</label>
+                    <textarea class="form-control"
+                      rows="4">Aspiring Full Stack Developer. Currently learning React and Node.js.</textarea>
+                  </div>
+                  <button type="button" class="btn-primary">Update Profile</button>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel text-center">
+                <img src="https://ui-avatars.com/api/?name=User&background=ff5e78&color=fff&size=128"
+                  class="rounded-circle mb-3" alt="User">
+                <h5>Student</h5>
+                <p class="text-muted">Pro Member</p>
+                <button class="btn btn-sm btn-outline-light w-100 mb-2">Change Avatar</button>
+                <button class="btn btn-sm btn-outline-danger w-100">Delete Account</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scripts -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+      <script>
+        function switchSection(sectionId, element) {
+          // Hide all sections
+          document.querySelectorAll('.dashboard-section').forEach(sec => {
+            sec.classList.remove('active');
+          });
+          // Show selected section
+          document.getElementById(sectionId).classList.add('active');
+
+          // Update active link styling
+          document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.classList.remove('active');
+          });
+          element.classList.add('active');
+          
+          if (window.innerWidth <= 768) {
+            toggleSidebar();
+          }
+        }
+        
+        function toggleSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          const overlay = document.querySelector('.sidebar-overlay');
+          if (sidebar) sidebar.classList.toggle('show');
+          if (overlay) overlay.classList.toggle('show');
+          document.body.classList.toggle('overflow-hidden');
+          document.documentElement.classList.toggle('overflow-hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const storedName = localStorage.getItem('stackly_name');
+          const storedEmail = localStorage.getItem('stackly_email');
+          
+          if (storedName) {
+            const welcomeSpan = document.getElementById('welcomeName');
+            if (welcomeSpan) welcomeSpan.textContent = `Welcome Back, ${storedName}`;
+          }
+          
+          if (storedEmail) {
+            const emailSpan = document.getElementById('navEmail');
+            if (emailSpan) emailSpan.textContent = storedEmail;
+          }
+        });
+      </script>
+</body>
+
+</html>

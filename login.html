@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - STACKLY</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Auth Specific Styles */
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      background-color: var(--bg-dark);
+    }
+
+    .auth-visual {
+      flex: 2;
+      position: relative;
+      background: radial-gradient(circle at center, var(--bg-surface) 0%, var(--bg-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .auth-visual::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('assets/images/img-16.webp') center/cover;
+      opacity: 0.15;
+      mix-blend-mode: luminosity;
+    }
+
+    .auth-visual-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .auth-form-container {
+      width: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.5rem;
+      background: var(--bg-dark);
+      border-left: 1px solid var(--border-color);
+      position: relative;
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .social-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: all var(--transition-fast);
+    }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .auth-divider span {
+      padding: 0 1rem;
+    }
+
+    /* Visual Logo */
+    .auth-visual-logo {
+      position: absolute;
+      top: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .auth-visual-logo img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(255, 94, 120, 0.3));
+    }
+
+    .auth-visual-logo .logo-text {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-visual-logo .logo-text span {
+      color: var(--accent-primary);
+    }
+
+    /* Role Selector */
+    .role-selector {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-option {
+      flex: 1;
+      position: relative;
+    }
+
+    .role-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .role-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+
+    .role-option label i {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .role-option label .role-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .role-option input[type="radio"]:checked+label {
+      border-color: var(--accent-primary);
+      background: rgba(255, 94, 120, 0.08);
+      box-shadow: 0 0 20px rgba(255, 94, 120, 0.15);
+    }
+
+    .role-option input[type="radio"]:checked+label i {
+      color: var(--accent-primary);
+    }
+
+    .role-option label:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Social Icon Bar */
+    .social-icons-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .social-icon-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .social-icon-circle:hover {
+      transform: translateY(-3px);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .social-icon-circle.github:hover {
+      background: #333;
+      box-shadow: 0 4px 15px rgba(51, 51, 51, 0.4);
+    }
+
+    .social-icon-circle.google:hover {
+      background: #ea4335;
+      box-shadow: 0 4px 15px rgba(234, 67, 53, 0.4);
+    }
+
+    .social-icon-circle.linkedin:hover {
+      background: #0a66c2;
+      box-shadow: 0 4px 15px rgba(10, 102, 194, 0.4);
+    }
+
+    .social-icon-circle.twitter:hover {
+      background: #1da1f2;
+      box-shadow: 0 4px 15px rgba(29, 161, 242, 0.4);
+    }
+
+    .social-icon-circle.facebook:hover {
+      background: #1877f2;
+      box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
+    }
+
+    /* Premium Visual Elements & Styling */
+    .visual-glow-circle-1 {
+      position: absolute;
+      top: 15%;
+      left: 15%;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 94, 120, 0.2) 0%, rgba(255, 94, 120, 0) 70%);
+      filter: blur(40px);
+      z-index: 1;
+      animation: float-glow 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .visual-glow-circle-2 {
+      position: absolute;
+      bottom: 15%;
+      right: 15%;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(101, 84, 192, 0.25) 0%, rgba(101, 84, 192, 0) 70%);
+      filter: blur(50px);
+      z-index: 1;
+      animation: float-glow 12s ease-in-out infinite alternate-reverse;
+      pointer-events: none;
+    }
+
+    .visual-grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      z-index: 1;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes float-glow {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        transform: translateY(-20px) scale(1.1);
+      }
+    }
+
+    /* Premium Code Editor Mockup */
+    .code-window {
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 460px;
+      margin: 2rem auto;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(255, 94, 120, 0.15);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 2;
+    }
+
+    .code-window:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(255, 94, 120, 0.25);
+    }
+
+    .code-window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .code-dot.red {
+      background-color: #ff5f56;
+    }
+
+    .code-dot.yellow {
+      background-color: #ffbd2e;
+    }
+
+    .code-dot.green {
+      background-color: #27c93f;
+    }
+
+    .code-window-title {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 500;
+      margin-right: 2rem;
+    }
+
+    .code-window-body pre {
+      margin: 0;
+      font-family: 'Fira Code', 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #f8f8f2;
+    }
+
+    /* Syntax Highlighting */
+    .code-keyword {
+      color: #ff79c6;
+      /* Pink keyword */
+      font-weight: 600;
+    }
+
+    .code-function {
+      color: #f1fa8c;
+      /* Yellow function names */
+    }
+
+    .code-object {
+      color: #bd93f9;
+      /* Purple object name */
+    }
+
+    /* Go to Home Button */
+    .btn-go-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+      position: relative;
+    }
+
+    .btn-go-home:hover {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      border-color: transparent;
+      color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 94, 120, 0.35);
+    }
+
+    .arrow-line {
+      transition: transform 0.3s ease;
+      display: inline-block;
+      letter-spacing: -2px;
+      margin-left: 4px;
+    }
+
+    .btn-go-home:hover .arrow-line {
+      transform: translateX(8px);
+    }
+
+    @media (max-width: 992px) {
+      .auth-visual {
+        display: none;
+      }
+
+      .auth-form-container {
+        width: 100%;
+        border-left: none;
+        align-items: center;
+      }
+
+      .auth-form-wrapper {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition-overlay"></div>
+
+  <div class="auth-page">
+
+    <!-- Left Visual Side -->
+    <div class="auth-visual">
+      <div class="bg-gradient-animated"
+        style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.3;"></div>
+      <div class="visual-glow-circle-1"></div>
+      <div class="visual-glow-circle-2"></div>
+      <div class="visual-grid-overlay"></div>
+
+      <!-- Company Logo at Top -->
+      <div class="auth-visual-logo">
+        <img src="assets/images/logo-pink.webp" alt="STACKLY Logo" height="50">
+      </div>
+
+      <div class="auth-visual-content">
+        <h2 class="display-5 fw-bold text-white mb-2 hero-text-animate">Build Your Future.</h2>
+        <p class="text-muted fs-5 mb-4 hero-text-animate">Join the premier coding bootcamp and accelerate your tech
+          career.</p>
+
+        <!-- Premium Code Editor Mockup -->
+        <div class="code-window hero-text-animate">
+          <div class="code-window-header">
+            <div class="code-dots">
+              <span class="code-dot red"></span>
+              <span class="code-dot yellow"></span>
+              <span class="code-dot green"></span>
+            </div>
+            <div class="code-window-title">initialize.js</div>
+          </div>
+          <div class="code-window-body">
+            <pre><code><span class="code-keyword">function</span> <span class="code-function">initializeFuture</span>() {
+  <span class="code-keyword">const</span> student = <span class="code-keyword">await</span> <span class="code-object">STACKLY</span>.<span class="code-function">login</span>();
+  <span class="code-keyword">return</span> student.<span class="code-function">buildProducts</span>();
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Go to Home Button -->
+        <div class="hero-text-animate mt-4">
+          <a href="home.html" class="btn-go-home">
+            Go to Home <span class="arrow-line">-----></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Form Side -->
+    <div class="auth-form-container">
+      <div class="auth-form-wrapper w-100">
+
+        <!-- Mobile Logo -->
+        <div class="d-lg-none mb-4 d-flex justify-content-center">
+          <img src="assets/images/logo-pink.webp" alt="STACKLY" style="height: 30px; width: auto;">
+        </div>
+
+        <h1 class="h3 fw-bold mb-2">Welcome Back</h1>
+        <p class="text-muted mb-4">Log in to your STACKLY account to continue learning.</p>
+
+        <!-- Login Form -->
+        <form class="needs-validation" novalidate>
+          <!-- Role Selector -->
+          <div class="mb-4">
+            <label for="roleSelect" class="form-label">Select Role</label>
+            <select class="form-control" id="roleSelect" required>
+              <option value="" disabled>-- Choose your role --</option>
+              <option value="admin">🛡️ Admin</option>
+              <option value="user" selected>👤 User</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label for="password" class="form-label mb-0">Password</label>
+              <a href="forgot-password.html" class="text-muted fs-7 text-decoration-none"
+                style="font-size: 0.8rem;">Forgot Password?</a>
+            </div>
+            <div class="password-container">
+              <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+              <button type="button" class="password-toggle">
+                <i class="bi bi-eye-slash"></i>
+              </button>
+            </div>
+            <div class="invalid-feedback">Please enter your password.</div>
+          </div>
+
+          <div class="mb-4 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label text-muted fs-7" for="rememberMe" style="font-size: 0.85rem;">Remember me for
+              30 days</label>
+          </div>
+
+          <button type="submit" class="btn-primary w-100 mb-3">Login &rarr;</button>
+        </form>
+
+        <p class="text-center text-muted fs-7" style="font-size: 0.9rem;">
+          Don't have an account? <a href="register.html" class="text-white text-decoration-none fw-bold ms-1">Create
+            Account</a>
+        </p>
+
+        <!-- Social Icons at Bottom -->
+        <div class="social-icons-bar">
+          <a href="#" class="social-icon-circle github" title="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" class="social-icon-circle google" title="Google"><i class="bi bi-google"></i></a>
+          <a href="#" class="social-icon-circle linkedin" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="social-icon-circle twitter" title="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-icon-circle facebook" title="Facebook"><i class="bi bi-facebook"></i></a>
+        </div>
+
+        <!-- Mobile Go to Home Button -->
+        <div class="d-lg-none mt-5">
+          <a href="index.html" class="btn-outline w-100">
+            <i class="bi bi-house me-2"></i> Go to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Initial entrance animation
+    document.addEventListener('DOMContentLoaded', () => {
+      gsap.from('.auth-form-wrapper > *', {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        delay: 0.2
+      });
+      if (window.triggerHeroAnimation) window.triggerHeroAnimation();
+    });
+  </script>
+  <script src="js/layout.js"></script>
+</body>
+
+</html>

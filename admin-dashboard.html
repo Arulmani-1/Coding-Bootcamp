@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - STACKLY</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: rgba(0, 0, 0, 0.2);
+      border-right: 1px solid var(--border-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+    }
+
+    .sidebar-link.active {
+      background: rgba(255, 94, 120, 0.1);
+      color: var(--accent-primary);
+      border-left: 3px solid var(--accent-primary);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .main-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dashboard-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      margin: 0;
+      color: var(--accent-primary);
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 220px;
+        padding: 1.5rem 0.5rem;
+      }
+      .sidebar-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Hide page scrollbar on mobile */
+      body::-webkit-scrollbar, html::-webkit-scrollbar {
+        display: none;
+      }
+      body, html {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .dashboard-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        z-index: 1050;
+        background: var(--bg-darker);
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+      }
+      
+      .sidebar.show {
+        left: 0;
+      }
+      
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+      }
+
+      .sidebar-overlay.show {
+        display: block;
+      }
+
+      /* Make full page scrollable on mobile */
+      .main-area {
+        max-height: none !important;
+        overflow: visible !important;
+        width: 100%;
+      }
+      
+      .main-content {
+        padding: 1.25rem !important;
+        overflow-y: visible !important;
+      }
+
+      .dashboard-navbar {
+        padding: 1rem !important;
+      }
+
+      .nav-right {
+        /* Ensure it remains aligned correctly without the image */
+      }
+
+      .stat-card {
+        padding: 1.25rem;
+      }
+
+      .stat-card h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-brand mb-4 px-3 d-flex align-items-center gap-2" style="cursor: pointer;" onclick="switchSection('overview', document.querySelector('.sidebar-link'))">
+        <img src="assets/images/logo-pink.webp" alt="STACKLY" style="height: 30px;">
+      </div>
+
+      <div class="mb-4 px-3">
+        <div class="d-flex align-items-center gap-3">
+          <div>
+            <span class="text-primary">Admin Portal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-link active" onclick="switchSection('overview', this)">
+        <i class="bi bi-grid"></i> Overview
+      </div>
+      <div class="sidebar-link" onclick="switchSection('users', this)">
+        <i class="bi bi-people"></i> Users Management
+      </div>
+      <div class="sidebar-link" onclick="switchSection('courses', this)">
+        <i class="bi bi-journal-code"></i> Courses
+      </div>
+      <div class="sidebar-link" onclick="switchSection('settings', this)">
+        <i class="bi bi-gear"></i> Settings
+      </div>
+      <div class="mt-auto">
+        <a href="login.html" class="sidebar-link text-danger mt-4">
+          <i class="bi bi-box-arrow-left"></i> Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-area d-flex flex-column flex-grow-1" style="max-height: 100vh; overflow: hidden;">
+
+      <!-- Dashboard Navbar -->
+      <header class="dashboard-navbar d-flex justify-content-between align-items-center px-4 py-3"
+        style="background: rgba(0,0,0,0.15); border-bottom: 1px solid var(--border-color);">
+        <div class="nav-left d-flex align-items-center gap-3">
+          <button class="btn btn-sm btn-outline-light d-md-none" onclick="toggleSidebar()">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+          <span id="welcomeName" class="fs-5 fw-bold font-display text-white d-none d-md-inline">Welcome Back, Admin</span>
+        </div>
+        <div class="nav-right text-muted small d-flex align-items-center gap-2">
+          <span id="navEmail">admin@stackly.com</span>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <div class="main-content" style="flex: 1; padding: 2rem; overflow-y: auto;">
+
+        <!-- Overview Section -->
+        <div id="overview" class="dashboard-section active">
+          <h2 class="mb-4">Dashboard Overview</h2>
+          <div class="row g-4 mb-4">
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-people fs-4 text-muted"></i>
+                <h3>1,248</h3>
+                <p>Total Users</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-journal-check fs-4 text-muted"></i>
+                <h3>42</h3>
+                <p>Active Courses</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-currency-dollar fs-4 text-muted"></i>
+                <h3>$12.5k</h3>
+                <p>Monthly Revenue</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-activity fs-4 text-muted"></i>
+                <h3>89%</h3>
+                <p>Completion Rate</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-hdd-network fs-4 text-muted"></i>
+                <h3>99.9%</h3>
+                <p>Server Uptime</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-envelope-paper fs-4 text-muted"></i>
+                <h3>15</h3>
+                <p>Support Tickets</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-star fs-4 text-muted"></i>
+                <h3>120</h3>
+                <p>Pending Reviews</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <i class="bi bi-person-plus fs-4 text-muted"></i>
+                <h3>+24</h3>
+                <p>New Enrollments</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel mt-4">
+            <h4 class="mb-3">Recent Activities</h4>
+            <div class="table-responsive">
+              <table class="table table-dark table-hover bg-transparent">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Doe</td>
+                    <td>Enrolled in React Bootcamp</td>
+                    <td>2 mins ago</td>
+                  </tr>
+                  <tr>
+                    <td>Sarah Smith</td>
+                    <td>Completed Python Basics</td>
+                    <td>1 hour ago</td>
+                  </tr>
+                  <tr>
+                    <td>Mike Johnson</td>
+                    <td>Updated profile</td>
+                    <td>3 hours ago</td>
+                  </tr>
+                  <tr>
+                    <td>Emily Chen</td>
+                    <td>Submitted Final Project</td>
+                    <td>5 hours ago</td>
+                  </tr>
+                  <tr>
+                    <td>System Admin</td>
+                    <td>Weekly backup completed</td>
+                    <td>12 hours ago</td>
+                  </tr>
+                  <tr>
+                    <td>David Lee</td>
+                    <td>Started React Masterclass</td>
+                    <td>1 day ago</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Section -->
+        <div id="users" class="dashboard-section">
+          <h2 class="mb-4">Users Management</h2>
+          <div class="glass-panel">
+            <div class="d-flex justify-content-between mb-3">
+              <input type="text" class="form-control w-25" placeholder="Search users...">
+              <button class="btn-primary">Add New User</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark table-hover bg-transparent">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#101</td>
+                    <td>Alice Williams</td>
+                    <td>alice@example.com</td>
+                    <td>Student</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#102</td>
+                    <td>Bob Brown</td>
+                    <td>bob@example.com</td>
+                    <td>Instructor</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>#103</td>
+                    <td>Charlie Davis</td>
+                    <td>charlie@example.com</td>
+                    <td>Student</td>
+                    <td><span class="badge bg-warning text-dark">Pending</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></button>
+                      <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div id="courses" class="dashboard-section">
+          <h2 class="mb-4">Course Management</h2>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="glass-panel text-center">
+                <i class="bi bi-plus-circle fs-1 text-muted mb-3 d-block"></i>
+                <h5>Create New Course</h5>
+                <button class="btn-outline-pink mt-2">Create</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel">
+                <h5>Full-Stack Web Development</h5>
+                <p class="text-muted small">8 Modules • 120 Students</p>
+                <div class="progress mt-3 mb-2" style="height: 5px;">
+                  <div class="progress-bar bg-success" style="width: 100%"></div>
+                </div>
+                <small class="text-success">Published</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel">
+                <h5>Advanced Python & AI</h5>
+                <p class="text-muted small">5 Modules • 45 Students</p>
+                <div class="progress mt-3 mb-2" style="height: 5px;">
+                  <div class="progress-bar bg-warning" style="width: 60%"></div>
+                </div>
+                <small class="text-warning">Draft</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel">
+                <h5>UI/UX Design Masterclass</h5>
+                <p class="text-muted small">12 Modules • 210 Students</p>
+                <div class="progress mt-3 mb-2" style="height: 5px;">
+                  <div class="progress-bar bg-success" style="width: 85%"></div>
+                </div>
+                <small class="text-success">Published</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel">
+                <h5>Data Science for Beginners</h5>
+                <p class="text-muted small">4 Modules • 0 Students</p>
+                <div class="progress mt-3 mb-2" style="height: 5px;">
+                  <div class="progress-bar bg-warning" style="width: 15%"></div>
+                </div>
+                <small class="text-warning">Draft</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="glass-panel">
+                <h5>Mobile App Dev with React</h5>
+                <p class="text-muted small">10 Modules • 89 Students</p>
+                <div class="progress mt-3 mb-2" style="height: 5px;">
+                  <div class="progress-bar bg-success" style="width: 45%"></div>
+                </div>
+                <small class="text-success">Published</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings" class="dashboard-section">
+          <h2 class="mb-4">Platform Settings</h2>
+          <div class="glass-panel">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">Platform Name</label>
+                <input type="text" class="form-control" value="STACKLY">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Support Email</label>
+                <input type="email" class="form-control" value="support@stackly.com">
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Default Language</label>
+                  <select class="form-select bg-dark text-white border-secondary">
+                    <option selected>English</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Timezone</label>
+                  <select class="form-select bg-dark text-white border-secondary">
+                    <option selected>UTC (Coordinated Universal)</option>
+                    <option>PST (Pacific Standard)</option>
+                    <option>EST (Eastern Standard)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="allowRegistration" checked>
+                  <label class="form-check-label text-white" for="allowRegistration">Allow New User Registrations</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                  <label class="form-check-label text-white" for="emailNotifications">Enable Email Notifications</label>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                  <label class="form-check-label text-white" for="maintenanceMode">Enable Maintenance Mode</label>
+                </div>
+              </div>
+              <button type="button" class="btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scripts -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+      <script>
+        function switchSection(sectionId, element) {
+          // Hide all sections
+          document.querySelectorAll('.dashboard-section').forEach(sec => {
+            sec.classList.remove('active');
+          });
+          // Show selected section
+          document.getElementById(sectionId).classList.add('active');
+
+          // Update active link styling
+          document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.classList.remove('active');
+          });
+          element.classList.add('active');
+          
+          if (window.innerWidth <= 768) {
+            toggleSidebar();
+          }
+        }
+        
+        function toggleSidebar() {
+          const sidebar = document.querySelector('.sidebar');
+          const overlay = document.querySelector('.sidebar-overlay');
+          if (sidebar) sidebar.classList.toggle('show');
+          if (overlay) overlay.classList.toggle('show');
+          document.body.classList.toggle('overflow-hidden');
+          document.documentElement.classList.toggle('overflow-hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const storedName = localStorage.getItem('stackly_name');
+          const storedEmail = localStorage.getItem('stackly_email');
+          
+          if (storedName) {
+            const welcomeSpan = document.getElementById('welcomeName');
+            if (welcomeSpan) welcomeSpan.textContent = `Welcome Back, ${storedName}`;
+          }
+          
+          if (storedEmail) {
+            const emailSpan = document.getElementById('navEmail');
+            if (emailSpan) emailSpan.textContent = storedEmail;
+          }
+        });
+      </script>
+</body>
+
+</html>

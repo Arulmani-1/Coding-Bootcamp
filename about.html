@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Recode Bootcamp</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    :root {
+      --about-bg: #ffffff;
+      --about-card: #ffffff;
+      --about-border: rgba(0, 0, 0, 0.08);
+      --about-green: var(--brand-pink, #ff5e78);
+      --about-text: #555555;
+    }
+    
+    body {
+      background-color: var(--about-bg) !important;
+      color: #333;
+    }
+
+    .about-section {
+      padding: 100px 0;
+    }
+
+    .section-subtitle {
+      color: var(--about-green);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 3rem;
+      color: #000;
+    }
+
+    /* Marquee */
+    .marquee-wrapper {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--about-border);
+      margin-top: 100px;
+      display: flex;
+    }
+    .marquee-content {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: space-around;
+      min-width: 100%;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-content span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.4);
+      padding: 0 40px;
+      transition: color 0.3s ease;
+      cursor: default;
+    }
+    .marquee-content span:hover {
+      color: var(--brand-pink, #ff5e78);
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Video Wrapper */
+    .video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .video-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/5;
+    }
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .play-btn:hover {
+      color: #fff;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* Accordion */
+    .accordion-item {
+      background: transparent;
+      border: 1px solid var(--about-border);
+      border-radius: 12px !important;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .accordion-button {
+      background: var(--about-card);
+      color: #000;
+      font-weight: 600;
+      padding: 20px;
+      box-shadow: none !important;
+    }
+    .accordion-button:not(.collapsed) {
+      background: var(--about-card);
+      color: var(--about-green);
+    }
+    .accordion-button::after {
+      content: '+';
+      background: none;
+      color: var(--about-green);
+      font-size: 1.5rem;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: none !important;
+    }
+    .accordion-button:not(.collapsed)::after {
+      content: '-';
+    }
+    .accordion-body {
+      background: var(--about-card);
+      color: var(--about-text);
+      border-top: 1px solid var(--about-border);
+      padding: 20px;
+    }
+
+    /* Stepper */
+    .stepper-item {
+      position: relative;
+      padding-left: 60px;
+      padding-bottom: 40px;
+    }
+    .stepper-item:last-child {
+      padding-bottom: 0;
+    }
+    .stepper-item::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 50px;
+      bottom: -10px;
+      width: 2px;
+      border-left: 2px dashed var(--about-border);
+    }
+    .stepper-item:last-child::before {
+      display: none;
+    }
+    .step-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 50px;
+      height: 50px;
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--about-bg);
+      z-index: 2;
+    }
+    .stepper-item.active .step-icon {
+      background: var(--about-green);
+      border-color: var(--about-green);
+      color: #fff;
+    }
+    .step-num {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #fff;
+      color: #000;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Cards */
+    .about-card {
+      background: var(--about-card);
+      color: #000;
+      border: 1px solid var(--about-border);
+      border-radius: 16px;
+      padding: 40px 30px;
+      height: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .about-card:hover, .about-card.highlight {
+      border-color: var(--about-green);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      background: var(--about-green);
+      color: #fff;
+    }
+    .about-card:hover p, .about-card.highlight p {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+    .about-card:hover h4, .about-card.highlight h4 {
+      color: #fff !important;
+    }
+    .about-card:hover i, .about-card.highlight i {
+      color: #fff !important;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: var(--about-card);
+      color: #000;
+      border: 1px solid var(--about-border);
+      border-radius: 16px;
+      padding: 30px;
+      height: 100%;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .quote-icon {
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: var(--about-green);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .testimonial-card:hover, .testimonial-card.highlight {
+      border-color: var(--about-green);
+      background: var(--about-green);
+      color: #fff;
+    }
+    .testimonial-card:hover p, .testimonial-card.highlight p,
+    .testimonial-card:hover .text-muted, .testimonial-card.highlight .text-muted {
+      color: rgba(255,255,255,0.9) !important;
+    }
+    .testimonial-card:hover h5, .testimonial-card.highlight h5,
+    .testimonial-card:hover span.text-dark, .testimonial-card.highlight span.text-dark {
+      color: #fff !important;
+    }
+    .testimonial-card:hover .quote-icon, .testimonial-card.highlight .quote-icon {
+      background: #fff;
+      color: var(--about-green);
+    }
+    
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .btn-outline-dark:hover {
+      background-color: var(--brand-pink, #ff5e78) !important;
+      border-color: var(--brand-pink, #ff5e78) !important;
+      color: #fff !important;
+    }
+    .cta-box {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+      padding: 80px 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,94,120,0.15) 0%, transparent 70%);
+      z-index: 0;
+    }
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, transparent 70%);
+      z-index: 0;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Page Transition Overlay -->
+  <div class="page-transition-overlay"></div>
+
+  <div id="navbar-container"></div>
+
+  <!-- Header Banner -->
+  <section class="text-center" style="background-color: var(--bg-dark, #6554c0); padding-top: 10rem; padding-bottom: 5rem;">
+    <div class="container" data-aos="fade-up">
+      <h1 class="fw-bold mb-0" style="font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -1px; line-height: 1.2;">
+        <span class="d-inline-block text-white me-2" data-aos="fade-right" data-aos-delay="100">About</span>
+        <span class="d-inline-block" style="color: var(--brand-pink, #ff5e78);" data-aos="fade-left" data-aos-delay="300">Us.</span>
+      </h1>
+    </div>
+  </section>
+  <!-- Marquee Section -->
+  <div class="text-center pt-5 mt-5">
+    <h3 class="fw-bold mt-5"><span style="color: var(--about-green);">20K+</span> Our graduates have worked in</h3>
+  </div>
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <span><i class="bi bi-apple"></i> Stackly</span>
+      <span><i class="bi bi-microsoft"></i> Stackly</span>
+      <span><i class="bi bi-google"></i> Stackly</span>
+      <span><i class="bi bi-meta"></i> Stackly</span>
+      <span><i class="bi bi-amazon"></i> Stackly</span>
+      <span><i class="bi bi-apple"></i> Stackly</span>
+    </div>
+    <div class="marquee-content">
+      <span><i class="bi bi-apple"></i> Stackly</span>
+      <span><i class="bi bi-microsoft"></i> Stackly</span>
+      <span><i class="bi bi-google"></i> Stackly</span>
+      <span><i class="bi bi-meta"></i> Stackly</span>
+      <span><i class="bi bi-amazon"></i> Stackly</span>
+      <span><i class="bi bi-apple"></i> Stackly</span>
+    </div>
+  </div>
+
+  <!-- About Accordion Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5" data-aos="fade-right">
+          <div class="video-wrapper">
+            <img src="assets/images/about_video_thumb.webp" alt="About Bootcamp">
+            <i class="bi bi-play-circle play-btn"></i>
+          </div>
+        </div>
+        <div class="col-lg-7" data-aos="fade-left">
+          <span class="section-subtitle">About Bootcamp</span>
+          <h2 class="section-title">Empowering the Future of Tech Innovators</h2>
+          <p class="mb-5" style="color: var(--about-text);">At Recode Bootcamp, we equip aspiring developers with the skills and confidence to succeed in tech. Learn, build, and launch your career!</p>
+          
+          <div class="accordion" id="aboutAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                  What is Recode Bootcamp?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body">
+                  Recode Bootcamp is an intensive training program designed to teach you the skills needed to start a career in software development.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                  Do I need prior coding experience to join the bootcamp?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body">
+                  No, you do not need any prior coding experience. Our bootcamp is designed for beginners, and we start from the fundamentals to build a strong foundation.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                  How long does the bootcamp program take?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+                <div class="accordion-body">
+                  Our immersive programs typically range from 12 to 24 weeks depending on whether you choose full-time or part-time options.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-up">
+          <span class="section-subtitle">How It Works?</span>
+          <h2 class="section-title">Your Path to a Tech Career Starts Here</h2>
+          <p class="mb-5" style="color: var(--about-text);">Follow our structured learning process from selecting your course to landing your dream job with expert guidance and hands-on experience.</p>
+          
+          <div class="stepper">
+            <div class="stepper-item">
+              <div class="step-icon"><i class="bi bi-search text-dark"></i><span class="step-num">01</span></div>
+              <h4 class="fw-bold mb-2">Choose a course</h4>
+              <p style="color: var(--about-text); font-size: 0.9rem;">Select the course that fits your career goals.</p>
+            </div>
+            <div class="stepper-item active">
+              <div class="step-icon"><i class="bi bi-book text-white"></i><span class="step-num">02</span></div>
+              <h4 class="fw-bold mb-2 text-dark">Learn with Interactive Sessions</h4>
+              <p style="color: var(--about-text); font-size: 0.9rem;">Engage in hands-on learning with expert guidance.</p>
+            </div>
+            <div class="stepper-item">
+              <div class="step-icon"><i class="bi bi-laptop text-dark"></i><span class="step-num">03</span></div>
+              <h4 class="fw-bold mb-2">Build real-world projects</h4>
+              <p style="color: var(--about-text); font-size: 0.9rem;">Apply your skills to practical projects.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <img src="assets/images/about_stepper.webp" alt="How it works" class="img-fluid rounded-4" style="object-fit: cover; height: 600px; width: 100%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="about-section">
+    <div class="container text-center">
+      <span class="section-subtitle" data-aos="fade-up">Why Choose Bootcamp?</span>
+      <h2 class="section-title mb-5" data-aos="fade-up">Benefits from this<br>bootcamp</h2>
+      
+      <div class="row justify-content-center g-4">
+        <!-- Center top card is pushed down slightly, let's just make a nice masonry-like grid -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">Hands-On, Real World Projects</h4>
+            <p style="font-size: 0.9rem;">Build a strong portfolio with industry-relevant projects that showcase your skills.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">High-Quality Coding Bootcamp</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Master in-demand coding skills with expert training and hands-on projects for tech careers.</p>
+          </div>
+        </div>
+        
+        <div class="w-100 d-none d-lg-block"></div>
+        
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">Job Guarantee or Money Back</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Get 100% job placement support with our hiring partners or your money back, guaranteed!</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 d-none d-lg-flex align-items-center justify-content-center">
+          <!-- Empty space for the staggered layout -->
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">Exclusive Access to Events</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Get free access to workshops, events, and extra courses for students and alumni.</p>
+          </div>
+        </div>
+        
+        <div class="w-100 d-none d-lg-block"></div>
+        
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">Flexible Payment Options</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Choose a payment plan that works for you and start learning without financial worries.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="about-card">
+            <h4 class="fw-bold mb-3">In-Demand Tech Skills</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Master the latest technologies and frameworks that top companies are looking for.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Support Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-up">
+        <div>
+          <span class="section-subtitle">Career Support</span>
+          <h2 class="section-title mb-0 text-start">Recode Bootcamp<br>Career Support</h2>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-bold" style="border-width: 2px;">Get Career Support</a>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="about-card text-start">
+            <i class="bi bi-diagram-3 fs-1 mb-4 d-block"></i>
+            <h4 class="fw-bold mb-3">Company Network</h4>
+            <p style="font-size: 0.9rem;">Choose a payment plan that works for you and start learning without financial worries.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="about-card text-start">
+            <i class="bi bi-globe fs-1 mb-4 d-block" style="color: var(--about-green);"></i>
+            <h4 class="fw-bold mb-3">Alumni Community</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Join a supportive alumni network where you can collaborate, share experiences, and find job opportunities.</p>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="about-card text-start">
+            <i class="bi bi-search fs-1 mb-4 d-block" style="color: var(--about-green);"></i>
+            <h4 class="fw-bold mb-3">Access to Job Board</h4>
+            <p style="font-size: 0.9rem; color: var(--about-text);">Get exclusive access to curated job openings and apply directly to positions that match your skills and expertise.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Stories -->
+  <section class="about-section">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <span class="section-subtitle">Success Stories</span>
+        <h2 class="section-title">Our Alumni's Success Stories</h2>
+        <p class="max-w-700 mx-auto" style="color: var(--about-text);">Discover how our bootcamp has empowered students to achieve their career goals through real-life success stories and testimonials.</p>
+      </div>
+      
+      <div class="row g-4 pt-4">
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem;">Recode offers high-quality training that significantly enhanced my skills. The knowledge I gained was invaluable, and the conducive classroom atmosphere truly supported my learning process.</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_1.webp" alt="Lucas Moore" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0">Lucas Moore</h5>
+                <span class="text-muted" style="font-size: 0.8rem;">Web Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem; color: var(--about-text);">I am very happy with my learning experience at Recode. I gained a lot of programming and soft skills from the experienced trainers. The conducive classroom environment made me feel comfortable and motivated to learn.</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_2.webp" alt="Amanda Smith" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark">Amanda Smith</h5>
+                <span style="font-size: 0.8rem; color: var(--about-text);">Software Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem; color: var(--about-text);">Recode offers excellent programming training. I also learned many soft skills from the professional trainers. The comfortable classroom environment really supported my learning process. I gained was invaluable...</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_3.webp" alt="Daniel Johnson" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark">Daniel Johnson</h5>
+                <span style="font-size: 0.8rem; color: var(--about-text);">Frontend Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem; color: var(--about-text);">My learning experience at Recode was truly amazing. I not only gained programming knowledge but also valuable soft skills from expert trainers. The conducive classroom environment made learning more enjoyable.</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_5.webp" alt="Daniel Martinez" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark">Daniel Martinez</h5>
+                <span style="font-size: 0.8rem; color: var(--about-text);">Full Stack Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="500">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem; color: var(--about-text);">At Recode, I can learn both programming and soft skills at the same time. The professional trainers and comfortable classroom atmosphere really motivated me to keep learning and growing.</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_3.webp" alt="Michael Brown" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark">Michael Brown</h5>
+                <span style="font-size: 0.8rem; color: var(--about-text);">Backend Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="600">
+          <div class="testimonial-card">
+            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+            <p class="mb-4 mt-3" style="font-size: 0.9rem; color: var(--about-text);">The learning process at Recode was truly outstanding. I felt supported by the lessons provided by the expert trainers. The comfortable classroom atmosphere made me even more motivated to continue developing.</p>
+            <div class="d-flex align-items-center gap-3">
+              <img src="assets/images/about_alumni_6.webp" alt="Olivia Garcia" class="author-img">
+              <div>
+                <h5 class="fw-bold mb-0 text-dark">Olivia Garcia</h5>
+                <span style="font-size: 0.8rem; color: var(--about-text);">Mobile App Developer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="about-section pb-5 pt-0">
+    <div class="container" data-aos="fade-up">
+      <div class="cta-box text-center mx-auto" style="max-width: 1000px;">
+        <div class="cta-content">
+          <h2 class="fw-bold mb-3 text-dark" style="font-size: clamp(2rem, 4vw, 2.5rem);">Ready to join our community?</h2>
+          <p class="mb-5" style="color: var(--about-text); font-size: 1.1rem;">Take the first step towards a fulfilling career in technology.</p>
+          <a href="bootcamps.html" class="btn text-white rounded-pill px-5 py-3 fw-bold shadow-sm" style="background-color: var(--brand-pink, #ff5e78);">Explore Our Bootcamps &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/layout.js"></script>
+</body>
+</html>

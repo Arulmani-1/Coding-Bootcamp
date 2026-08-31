@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Details - STACKLY</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .article-hero {
+      position: relative;
+      height: 60vh;
+      min-height: 400px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .article-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('assets/images/img-2.webp') center/cover;
+      z-index: -2;
+    }
+    .article-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.2) 0%, rgba(5,5,5,1) 100%);
+      z-index: -1;
+    }
+    
+    .article-content {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .article-content h2 {
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+    .article-content h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+    }
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+    .article-content pre {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+    
+    .toc {
+      position: sticky;
+      top: 100px;
+      padding: 2rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc li {
+      margin-bottom: 1rem;
+    }
+    .toc a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc a:hover, .toc a.active {
+      color: var(--accent-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader-wrapper">
+      <img src="assets/images/logo-pink.webp" alt="STACKLY" class="loader-logo">
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <div class="page-transition-overlay"></div>
+
+  <div id="navbar-container"></div>
+
+  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-5">
+        
+        <!-- Main Content -->
+        <div class="col-lg-8 mx-auto" data-aos="fade-up">
+          <article class="article-content">
+            <p class="lead text-white fw-bold">React Server Components (RSC) represent one of the most significant paradigm shifts in the React ecosystem since the introduction of Hooks. Let's explore why they matter and how they change mental models for developers.</p>
+            
+            <h2 id="what-are-rsc">What are React Server Components?</h2>
+            <p>Traditionally, React components execute on the client (the browser). When a user visits a page, the browser downloads the JavaScript bundle, parses it, and executes it to render the UI. This is known as Client-Side Rendering (CSR).</p>
+            <p>React Server Components, as the name implies, are components that execute <strong>only</strong> on the server. They never ship to the client. The server executes them, generates a special serialized representation of the UI, and sends that lightweight payload to the browser.</p>
+            
+            <h2 id="why-do-we-need-them">Why do we need them?</h2>
+            <p>The primary motivations for RSCs are performance and developer experience:</p>
+            <ul>
+              <li><strong>Zero Bundle Size:</strong> Since they don't ship to the client, you can use heavy libraries on the server without impacting the user's download size.</li>
+              <li><strong>Direct Backend Access:</strong> Server Components can securely access databases, file systems, and internal APIs without exposing secrets to the client.</li>
+              <li><strong>Automatic Code Splitting:</strong> RSCs naturally integrate with Suspense to stream UI chunks as they become ready.</li>
+            </ul>
+
+            <h3 id="code-example">A Simple Example</h3>
+            <p>Here's how a Server Component might look when fetching data directly from a database:</p>
+            <pre><code>import db from './db';
+
+// This is a Server Component. It can use async/await directly.
+export default async function UserList() {
+  const users = await db.query('SELECT * FROM users');
+  
+  return (
+    &lt;ul&gt;
+      {users.map(user =&gt; (
+        &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+
+            <h2 id="the-new-mental-model">The New Mental Model</h2>
+            <p>With RSCs, we must now divide our UI into "Server" and "Client" components. If a component needs interactivity (like <code>onClick</code> or <code>useState</code>), it must be a Client Component, designated with the <code>"use client"</code> directive.</p>
+            <p>The goal is to move as much as possible to the server, and only sprinkle interactive client components at the leaves of the render tree.</p>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>React Server Components are still evolving, largely driven by frameworks like Next.js. While the learning curve can be steep, the benefits to performance and data-fetching ergonomics make it a crucial skill for modern frontend developers.</p>
+            
+            <!-- Share -->
+            <div class="mt-5 pt-4 border-top border-secondary d-flex align-items-center gap-3">
+              <span class="fw-bold">Share this article:</span>
+              <a href="#" class="btn btn-outline py-1 px-2"><i class="bi bi-twitter-x"></i></a>
+              <a href="#" class="btn btn-outline py-1 px-2"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Sidebar / TOC -->
+        <div class="col-lg-3 d-none d-lg-block" data-aos="fade-left">
+          <div class="toc">
+            <h5 class="fw-bold mb-3">Table of Contents</h5>
+            <ul>
+              <li><a href="#what-are-rsc">What are React Server Components?</a></li>
+              <li><a href="#why-do-we-need-them">Why do we need them?</a></li>
+              <li><a href="#code-example">A Simple Example</a></li>
+              <li><a href="#the-new-mental-model">The New Mental Model</a></li>
+              <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Articles -->
+  <section class="section-padding bg-surface border-top border-secondary">
+    <div class="container">
+      <h3 class="fw-bold mb-4">Keep Reading</h3>
+      <div class="row g-4">
+        <!-- Reusing a card from blog.html -->
+        <div class="col-lg-4">
+          <div class="glass-panel p-4 h-100">
+            <div class="d-flex justify-content-between mb-3">
+              <span class="badge-accent bg-dark border-secondary">Career</span>
+            </div>
+            <h4 class="h5 mb-3 fw-bold">How to Ace the Technical Interview</h4>
+            <a href="blog-details.html" class="text-accent text-decoration-none fw-bold fs-7">Read Article &rarr;</a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="glass-panel p-4 h-100">
+            <div class="d-flex justify-content-between mb-3">
+              <span class="badge-accent bg-dark border-secondary">AI</span>
+            </div>
+            <h4 class="h5 mb-3 fw-bold">Building Apps with LLMs</h4>
+            <a href="blog-details.html" class="text-accent text-decoration-none fw-bold fs-7">Read Article &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.triggerHeroAnimation) window.triggerHeroAnimation();
+    });
+  </script>
+  <script src="js/layout.js"></script>
+</body>
+</html>
