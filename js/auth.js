@@ -43,7 +43,42 @@ function initAuthValidation() {
   
   forms.forEach(form => {
     form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
+      let customError = false;
+      const isRegisterPage = window.location.pathname.includes('register.html');
+      const password = document.getElementById('password');
+      const errorContainer = isRegisterPage ? document.getElementById('register-error') : document.getElementById('login-error');
+      
+      if (errorContainer) {
+        errorContainer.style.display = 'none';
+        errorContainer.innerText = '';
+      }
+
+      if (password && password.value.length > 0 && password.value.length < 8) {
+        if (errorContainer) {
+          errorContainer.innerText = 'Password must be at least 8 characters long.';
+          errorContainer.style.display = 'block';
+        }
+        customError = true;
+      }
+
+      if (isRegisterPage && !customError) {
+        const confirmPassword = document.getElementById('confirmPassword');
+        if (confirmPassword && confirmPassword.value.length > 0 && confirmPassword.value.length < 8) {
+           if (errorContainer) {
+             errorContainer.innerText = 'Confirm Password must be at least 8 characters long.';
+             errorContainer.style.display = 'block';
+           }
+           customError = true;
+        } else if (password && confirmPassword && password.value !== confirmPassword.value) {
+           if (errorContainer) {
+             errorContainer.innerText = 'Passwords do not match.';
+             errorContainer.style.display = 'block';
+           }
+           customError = true;
+        }
+      }
+
+      if (!form.checkValidity() || customError) {
         event.preventDefault();
         event.stopPropagation();
       } else {
@@ -55,8 +90,6 @@ function initAuthValidation() {
         btn.disabled = true;
         
         setTimeout(() => {
-          const isRegisterPage = window.location.pathname.includes('register.html');
-          
           if (isRegisterPage) {
             const nameInput = document.getElementById('fullName');
             const emailInput = document.getElementById('email');

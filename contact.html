@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us - STACKLY</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
 
   <!-- Preloader -->
@@ -50,8 +52,17 @@
               <div class="text-accent fs-3"><i class="bi bi-telephone"></i></div>
               <div>
                 <h5 class="fw-bold mb-1">Call Us</h5>
-                <p class="text-muted mb-0">+1 (800) 123-4567</p>
-                <p class="text-muted">Mon - Fri, 9am - 6pm EST</p>
+                <p class="text-muted mb-0">+91 98765 43210</p>
+                <p class="text-muted">Mon - Fri, 9am - 6pm IST</p>
+              </div>
+            </div>
+
+            <div class="d-flex gap-4 mb-4">
+              <div class="text-accent fs-3"><i class="bi bi-envelope"></i></div>
+              <div>
+                <h5 class="fw-bold mb-1">Email Us</h5>
+                <p class="text-muted mb-0">hello@stackly.com</p>
+                <p class="text-muted">We reply within 24 hours</p>
               </div>
             </div>
 
@@ -59,7 +70,8 @@
               <div class="text-accent fs-3"><i class="bi bi-geo-alt"></i></div>
               <div>
                 <h5 class="fw-bold mb-1">Headquarters</h5>
-                <p class="text-muted mb-0">123 Innovation Drive<br>Tech District<br>San Francisco, CA 94103</p>
+                <p class="text-muted mb-0">Stackly, MMR Complex<br>Periyakollappatty, Chinna Thirupathi<br>Salem, Tamil
+                  Nadu 636008, India</p>
               </div>
             </div>
 
@@ -119,11 +131,25 @@
           </div>
         </div>
       </div>
-      
       <!-- Responsive Map iframe -->
       <div class="mt-5" data-aos="fade-up">
-        <div class="iframe-container">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019129525145!2d-122.40114002446706!3d37.79449831131102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858061e8eb1467%3A0xcfd3936932454b8!2sFinancial%20District%2C%20San%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); height: 450px;">
+          <iframe src="https://maps.google.com/maps?q=Stackly,%20MMR%20Complex,%20Periyakollappatty,%20Chinna%20Thirupathi,%20Salem,%20Tamil%20Nadu%20636008&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-5 mb-5" data-aos="fade-up">
+        <div style="background: white; border-radius: 24px; padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+          <!-- Gradients -->
+          <div style="position: absolute; top: -50px; left: -50px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(255, 182, 193, 0.5) 0%, rgba(255, 182, 193, 0) 70%); filter: blur(30px);"></div>
+          <div style="position: absolute; bottom: -50px; right: -50px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(200, 245, 255, 0.6) 0%, rgba(200, 245, 255, 0) 70%); filter: blur(30px);"></div>
+          
+          <div style="position: relative; z-index: 2;">
+            <h2 style="color: #111; font-weight: 800; font-size: 2.2rem; margin-bottom: 1rem;">Ready to join our community?</h2>
+            <p style="color: #666; font-size: 1.05rem; margin-bottom: 2rem;">Take the first step towards a fulfilling career in technology.</p>
+            <a href="bootcamps.html" class="btn" style="background-color: #ff5e78; color: white; border-radius: 30px; padding: 0.8rem 2rem; font-weight: 600; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 15px rgba(255,94,120,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">Explore Our Bootcamps &rarr;</a>
+          </div>
         </div>
       </div>
 
@@ -139,8 +165,8 @@
   <script src="js/animations.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      if(window.triggerHeroAnimation) window.triggerHeroAnimation();
-      
+      if (window.triggerHeroAnimation) window.triggerHeroAnimation();
+
       // Contact Form Validation
       const forms = document.querySelectorAll('.contact-form');
       forms.forEach(form => {
@@ -162,4 +188,5 @@
   </script>
   <script src="js/layout.js"></script>
 </body>
+
 </html>
