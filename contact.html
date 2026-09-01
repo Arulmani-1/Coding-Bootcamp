@@ -43,6 +43,18 @@
     
     .social-links a { color: var(--accent-primary) !important; transition: transform 0.2s ease; display: inline-block; }
     .social-links a:hover { transform: translateY(-3px); opacity: 0.8; }
+    
+    /* Custom Validation Colors */
+    .was-validated .form-control:invalid {
+      border-color: #ff5e78 !important;
+    }
+    .was-validated .form-control:invalid:focus {
+      border-color: #ff5e78 !important;
+      box-shadow: 0 0 0 0.25rem rgba(255, 94, 120, 0.25) !important;
+    }
+    .was-validated .invalid-feedback {
+      color: #ff5e78 !important;
+    }
   </style>
 </head>
 
@@ -136,7 +148,8 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <label for="phone" class="form-label">Phone Number</label>
-                  <input type="tel" class="form-control" id="phone">
+                  <input type="tel" class="form-control" id="phone" required>
+                  <div class="invalid-feedback">Please enter your phone number.</div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <label for="subject" class="form-label">Subject</label>
@@ -208,9 +221,13 @@
           } else {
             event.preventDefault();
             const btn = form.querySelector('button[type="submit"]');
-            btn.innerHTML = '<i class="bi bi-check-lg"></i> Message Sent';
-            btn.classList.add('bg-success');
-            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+            btn.style.pointerEvents = 'none';
+            btn.classList.add('disabled');
+            btn.style.opacity = '0.8';
+            setTimeout(() => {
+              window.location.href = '404.html';
+            }, 1500);
           }
           form.classList.add('was-validated');
         }, false);

@@ -226,7 +226,7 @@
 
   <div class="page-404">
     
-    <a href="index.html" class="floating-logo">
+    <a href="home.html" class="floating-logo">
       <img src="assets/images/logo-pink.webp" alt="STACKLY">
     </a>
 
@@ -277,10 +277,10 @@ ORDER BY created_at DESC;
       <p class="desc-404">We looked everywhere, but couldn't find the page you're looking for. It might have been moved or deleted.</p>
       
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="javascript:history.back()" class="btn-go-back">
+        <button type="button" onclick="window.history.back();" class="btn-go-back" style="cursor: pointer; outline: none;">
           <i class="bi bi-arrow-left"></i> Go Back
-        </a>
-        <a href="index.html" class="btn-go-home">
+        </button>
+        <a href="home.html" class="btn-go-home">
           <i class="bi bi-house-door-fill"></i> Go to Home
         </a>
       </div>
@@ -312,3 +312,4 @@ ORDER BY created_at DESC;
   </script>
 </body>
 </html>
+

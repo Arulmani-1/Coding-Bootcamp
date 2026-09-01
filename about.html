@@ -98,6 +98,11 @@
       object-fit: cover;
       aspect-ratio: 4/5;
     }
+    @keyframes video-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+      70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    }
     .play-btn {
       position: absolute;
       top: 50%;
@@ -107,6 +112,9 @@
       color: rgba(255, 255, 255, 0.8);
       cursor: pointer;
       transition: all 0.3s ease;
+      border-radius: 50%;
+      animation: video-pulse 2s infinite;
+      background: rgba(0, 0, 0, 0.1); /* Slight background to make the shadow pop more if needed */
     }
     .play-btn:hover {
       color: #fff;
@@ -380,7 +388,9 @@
         <div class="col-lg-5" data-aos="fade-right">
           <div class="video-wrapper">
             <img src="assets/images/about_video_thumb.webp" alt="About Bootcamp">
-            <i class="bi bi-play-circle play-btn"></i>
+            <a href="404.html" class="play-btn text-decoration-none">
+              <i class="bi bi-play-circle"></i>
+            </a>
           </div>
         </div>
         <div class="col-lg-7" data-aos="fade-left">
@@ -530,7 +540,7 @@
           <span class="section-subtitle">Career Support</span>
           <h2 class="section-title mb-0 text-start">Recode Bootcamp<br>Career Support</h2>
         </div>
-        <a href="#" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-bold" style="border-width: 2px;">Get Career Support</a>
+        <a href="404.html" class="btn btn-outline-dark rounded-pill px-4 py-2 fw-bold" style="border-width: 2px;">Get Career Support</a>
       </div>
       
       <div class="row g-4">
@@ -677,3 +687,4 @@
   <script src="js/layout.js"></script>
 </body>
 </html>
+

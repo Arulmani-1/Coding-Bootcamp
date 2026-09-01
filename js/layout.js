@@ -59,3 +59,61 @@ async function loadComponents() {
     console.error('Error loading layout components:', error);
   }
 }
+
+// Global CTA Button Click Handler for Loading State -> 404
+document.addEventListener('click', function(e) {
+  const target = e.target.closest('a, button');
+  if (!target) return;
+
+  const targetTexts = [
+    'get started', 'learn more', 'discover now', 
+    'view all bootcamps', 'start plan', 'view location details', 
+    'get career support', 'view all mentors', 'view all post', 
+    'explore our bootcamps', 'view details'
+  ];
+  
+  const text = target.innerText.toLowerCase().trim();
+  let match = false;
+  
+  for (let t of targetTexts) {
+    if (text.includes(t)) {
+      match = true;
+      break;
+    }
+  }
+
+  if (match) {
+    e.preventDefault();
+    const originalWidth = target.offsetWidth;
+    
+    // Maintain width to prevent button from jumping
+    if (originalWidth > 0) {
+      target.style.width = originalWidth + 'px';
+    }
+    
+    // Replace text with spinner
+    target.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Loading...';
+    target.style.pointerEvents = 'none';
+    target.classList.add('disabled');
+    target.style.opacity = '0.8';
+    
+    // Redirect after 1.5 seconds to the href of the link, or 404.html as fallback
+    setTimeout(() => {
+      const targetHref = target.getAttribute('href');
+      if (targetHref && targetHref !== '#' && !targetHref.startsWith('javascript:')) {
+        window.location.href = targetHref;
+      } else {
+        window.location.href = '404.html';
+      }
+    }, 1500);
+  }
+});
+
+// Handle Back/Forward Cache (bfcache) to prevent stuck overlays or loading states
+window.addEventListener('pageshow', function (event) {
+  if (event.persisted) {
+    // If the page was restored from the browser cache (e.g. user clicked Go Back),
+    // force a reload to reset the page transition overlay and any button loading states.
+    window.location.reload();
+  }
+});
