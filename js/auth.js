@@ -99,18 +99,21 @@ function initAuthValidation() {
             
             window.location.href = 'login.html';
           } else {
-            const roleSelect = document.getElementById('roleSelect');
+            const roleInput = document.querySelector('input[name="role"]:checked');
             const emailInput = document.getElementById('email');
             
             if (emailInput) localStorage.setItem('stackly_email', emailInput.value);
             
-            if (roleSelect) {
-              const role = roleSelect.value;
+            if (roleInput) {
+              const role = roleInput.value;
               if (role === 'admin') {
                 window.location.href = 'admin-dashboard.html';
               } else {
                 window.location.href = 'user-dashboard.html';
               }
+            } else {
+              // Fallback just in case
+              window.location.href = 'user-dashboard.html';
             }
           }
         }, 1500);
