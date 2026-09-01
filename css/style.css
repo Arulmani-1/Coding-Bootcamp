@@ -15,6 +15,7 @@
 
   --accent-primary: #ff5e78;
   /* Brand Pink */
+  --brand-pink: #ff5e78;
   --accent-secondary: #ff3a59;
 
   --text-primary: #FFFFFF;
@@ -862,6 +863,9 @@ img {
 
 .text-pink {
   color: var(--brand-pink) !important;
+}
+.bg-pink {
+  background-color: var(--brand-pink) !important;
 }
 
 .section-light .text-muted {
