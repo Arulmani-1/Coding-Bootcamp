@@ -371,7 +371,7 @@
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="password-container">
-              <input type="password" class="form-control" id="password" placeholder="Create a strong password" required minlength="8">
+              <input type="text" class="form-control" id="password" placeholder="Create a strong password" required minlength="8" style="-webkit-text-security: disc;">
               <button type="button" class="password-toggle">
                 <i class="bi bi-eye-slash"></i>
               </button>
@@ -382,7 +382,7 @@
           <div class="mb-4">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
             <div class="password-container">
-              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required minlength="8">
+              <input type="text" class="form-control" id="confirmPassword" placeholder="Confirm your password" required minlength="8" style="-webkit-text-security: disc;">
               <button type="button" class="password-toggle">
                 <i class="bi bi-eye-slash"></i>
               </button>
@@ -398,7 +398,8 @@
             <div class="invalid-feedback">You must agree before submitting.</div>
           </div>
 
-          <button type="submit" class="btn-primary w-100 mb-4">Create Account &rarr;</button>
+          <button type="submit" class="btn-primary w-100 mb-2">Create Account &rarr;</button>
+          <p class="text-center text-muted mb-3" style="font-size: 0.8rem; opacity: 0.8;"><i class="bi bi-info-circle"></i> This is a frontend demo. Do not enter real credentials.</p>
           <div id="register-error" class="text-danger text-center mb-3 fw-bold" style="display: none; font-size: 0.9rem;"></div>
         </form>
 

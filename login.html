@@ -574,7 +574,7 @@
                 style="font-size: 0.8rem;">Forgot Password?</a>
             </div>
             <div class="password-container">
-              <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+              <input type="text" class="form-control" id="password" placeholder="Enter your password" required style="-webkit-text-security: disc;">
               <button type="button" class="password-toggle">
                 <i class="bi bi-eye-slash"></i>
               </button>
@@ -588,7 +588,8 @@
               30 days</label>
           </div>
 
-          <button type="submit" class="btn-primary w-100 mb-3">Login &rarr;</button>
+          <button type="submit" class="btn-primary w-100 mb-2">Login &rarr;</button>
+          <p class="text-center text-muted mb-3" style="font-size: 0.8rem; opacity: 0.8;"><i class="bi bi-info-circle"></i> This is a frontend demo. Do not enter real credentials.</p>
           <div id="login-error" class="text-danger text-center mb-3 fw-bold" style="display: none; font-size: 0.9rem;">Password must be at least 8 characters long.</div>
         </form>
 
