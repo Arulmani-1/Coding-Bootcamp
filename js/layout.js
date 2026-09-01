@@ -53,10 +53,42 @@ async function loadComponents() {
       // Small timeout to allow DOM to render
       setTimeout(() => {
         window.triggerHeroAnimation();
+        restoreScrollPosition();
       }, 100);
+    } else {
+      setTimeout(restoreScrollPosition, 100);
     }
   } catch (error) {
     console.error('Error loading layout components:', error);
+  }
+}
+
+// Save scroll position before leaving the page
+window.addEventListener('pagehide', function() {
+  sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
+});
+
+// Save scroll position instantly when clicking any link
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (link && link.href && !link.href.startsWith('javascript:')) {
+    sessionStorage.setItem('scrollPos_' + window.location.pathname, window.scrollY);
+  }
+});
+
+// Helper function to restore scroll on back navigation
+function restoreScrollPosition(force = false) {
+  const navEntry = performance.getEntriesByType("navigation")[0];
+  const isBackForward = navEntry && navEntry.type === 'back_forward';
+  
+  if (force || isBackForward) {
+    const savedPos = sessionStorage.getItem('scrollPos_' + window.location.pathname);
+    if (savedPos) {
+      // Small delay to ensure browser doesn't override our scroll
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(savedPos, 10));
+      }, 50);
+    }
   }
 }
 
@@ -85,11 +117,15 @@ document.addEventListener('click', function(e) {
   if (match) {
     e.preventDefault();
     const originalWidth = target.offsetWidth;
+    const originalHtml = target.innerHTML;
     
     // Maintain width to prevent button from jumping
     if (originalWidth > 0) {
       target.style.width = originalWidth + 'px';
     }
+    
+    // Save original HTML to restore when navigating back
+    target.setAttribute('data-original-html', originalHtml);
     
     // Replace text with spinner
     target.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Loading...';
@@ -112,8 +148,25 @@ document.addEventListener('click', function(e) {
 // Handle Back/Forward Cache (bfcache) to prevent stuck overlays or loading states
 window.addEventListener('pageshow', function (event) {
   if (event.persisted) {
-    // If the page was restored from the browser cache (e.g. user clicked Go Back),
-    // force a reload to reset the page transition overlay and any button loading states.
-    window.location.reload();
+    // Reset button loading states without reloading the page to preserve scroll position
+    const loadingBtns = document.querySelectorAll('[data-original-html]');
+    loadingBtns.forEach(btn => {
+      btn.innerHTML = btn.getAttribute('data-original-html');
+      btn.classList.remove('disabled');
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+      btn.removeAttribute('data-original-html');
+    });
+    
+    // Also reset form submit buttons
+    const disabledBtns = document.querySelectorAll('button:disabled');
+    disabledBtns.forEach(btn => btn.disabled = false);
+    
+    // Ensure preloader is hidden
+    const preloader = document.querySelector('.preloader');
+    if (preloader) preloader.classList.add('fade-out');
+    
+    // Restore scroll position for bfcache load
+    restoreScrollPosition(true);
   }
 });
