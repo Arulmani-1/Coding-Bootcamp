@@ -153,7 +153,7 @@
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 10px 25px rgba(255, 94, 120, 0.35);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: none;
     }
 
     .btn-go-home:hover {
@@ -226,9 +226,6 @@
 
   <div class="page-404">
     
-    <a href="home.html" class="floating-logo">
-      <img src="assets/images/logo-pink.webp" alt="STACKLY">
-    </a>
 
     <!-- Background Effects -->
     <div class="code-background">
@@ -277,7 +274,7 @@ ORDER BY created_at DESC;
       <p class="desc-404">We looked everywhere, but couldn't find the page you're looking for. It might have been moved or deleted.</p>
       
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="javascript:history.back()" class="btn-go-back" style="cursor: pointer; outline: none;">
+        <a href="javascript:void(0)" onclick="window.history.back();" class="btn-go-back">
           <i class="bi bi-arrow-left"></i> Go Back
         </a>
         <a href="home.html" class="btn-go-home">

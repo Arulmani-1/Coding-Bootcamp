@@ -107,14 +107,24 @@ function initActiveLinks() {
 function initPreloader() {
   const preloader = document.querySelector('.preloader');
   if (preloader) {
-    // Add a slight delay to ensure a smooth reveal
-    setTimeout(() => {
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isBackForward = navEntry && navEntry.type === 'back_forward';
+    
+    if (isBackForward) {
+      // Instantly hide on back navigation
       preloader.classList.add('fade-out');
-      // Trigger global GSAP entrance after preloader
       if (typeof window.triggerHeroAnimation === 'function') {
         window.triggerHeroAnimation();
       }
-    }, 2000);
+    } else {
+      // Normal load, wait 2 seconds
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+        if (typeof window.triggerHeroAnimation === 'function') {
+          window.triggerHeroAnimation();
+        }
+      }, 2000);
+    }
   }
 }
 

@@ -35,7 +35,7 @@ async function loadComponents() {
             const msg = document.getElementById('newsletter-message');
             if (msg) {
               msg.style.display = 'block';
-              setTimeout(() => {
+              window.newsletterTimeoutId = setTimeout(() => {
                 window.location.href = '404.html';
               }, 1500); // 1.5 second delay before redirect
             }
@@ -77,18 +77,35 @@ document.addEventListener('click', (e) => {
 });
 
 // Helper function to restore scroll on back navigation
-function restoreScrollPosition(force = false) {
-  const navEntry = performance.getEntriesByType("navigation")[0];
-  const isBackForward = navEntry && navEntry.type === 'back_forward';
+function restoreScrollPosition() {
+  const key = 'scrollPos_' + window.location.pathname;
+  const savedPos = sessionStorage.getItem(key);
   
-  if (force || isBackForward) {
-    const savedPos = sessionStorage.getItem('scrollPos_' + window.location.pathname);
-    if (savedPos) {
-      // Small delay to ensure browser doesn't override our scroll
-      setTimeout(() => {
-        window.scrollTo(0, parseInt(savedPos, 10));
-      }, 50);
+  if (savedPos) {
+    const targetY = parseInt(savedPos, 10);
+    
+    const doScroll = () => {
+      window.scrollTo(0, targetY);
+    };
+
+    // Try scrolling immediately
+    doScroll();
+    
+    // Try again after small delays in case of dynamic DOM or slow images
+    setTimeout(doScroll, 100);
+    setTimeout(doScroll, 500);
+    
+    // And wait for full page load just to be absolutely sure
+    if (document.readyState === 'complete') {
+      setTimeout(doScroll, 100);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(doScroll, 100);
+      });
     }
+    
+    // Remove it so it doesn't trigger on manual page reloads
+    sessionStorage.removeItem(key);
   }
 }
 
@@ -134,7 +151,7 @@ document.addEventListener('click', function(e) {
     target.style.opacity = '0.8';
     
     // Redirect after 1.5 seconds to the href of the link, or 404.html as fallback
-    setTimeout(() => {
+    window.ctaTimeoutId = setTimeout(() => {
       const targetHref = target.getAttribute('href');
       if (targetHref && targetHref !== '#' && !targetHref.startsWith('javascript:')) {
         window.location.href = targetHref;
@@ -147,7 +164,21 @@ document.addEventListener('click', function(e) {
 
 // Handle Back/Forward Cache (bfcache) to prevent stuck overlays or loading states
 window.addEventListener('pageshow', function (event) {
+  // Always ensure page transition overlay is hidden and animations stopped
+  // This fixes the solid purple screen issue when navigating back
+  const overlay = document.querySelector('.page-transition-overlay');
+  if (overlay) {
+    if (typeof gsap !== 'undefined') gsap.killTweensOf(overlay);
+    overlay.style.display = 'none';
+    overlay.style.opacity = '0';
+  }
+
   if (event.persisted) {
+    // Clear any pending timeouts that were paused in bfcache
+    if (window.ctaTimeoutId) clearTimeout(window.ctaTimeoutId);
+    if (window.newsletterTimeoutId) clearTimeout(window.newsletterTimeoutId);
+    window.isPageTransitioning = false;
+
     // Reset button loading states without reloading the page to preserve scroll position
     const loadingBtns = document.querySelectorAll('[data-original-html]');
     loadingBtns.forEach(btn => {
@@ -167,6 +198,6 @@ window.addEventListener('pageshow', function (event) {
     if (preloader) preloader.classList.add('fade-out');
     
     // Restore scroll position for bfcache load
-    restoreScrollPosition(true);
+    restoreScrollPosition();
   }
 });

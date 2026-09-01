@@ -143,6 +143,11 @@ function initPageTransitions() {
     
     link.addEventListener('click', (e) => {
       e.preventDefault();
+      
+      // Prevent multiple rapid clicks from adding multiple duplicate history entries
+      if (window.isPageTransitioning) return;
+      window.isPageTransitioning = true;
+      
       const target = link.getAttribute('href');
       
       overlay.style.display = 'block';
