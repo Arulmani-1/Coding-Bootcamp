@@ -164,75 +164,7 @@
       z-index: 2;
     }
 
-    /* Role Selector */
-    .role-selector {
-      display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
 
-    .role-option {
-      flex: 1;
-      position: relative;
-    }
-
-    .role-option input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .role-option label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem;
-      background: var(--bg-surface);
-      border: 2px solid var(--border-color);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align: center;
-    }
-
-    .role-option label i {
-      font-size: 1.5rem;
-      color: var(--text-muted);
-      transition: color 0.3s ease;
-    }
-
-    .role-option label .role-title {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-    }
-
-    .role-option input[type="radio"]:checked+label {
-      border-color: var(--accent-primary);
-      background: rgba(255, 94, 120, 0.08);
-      box-shadow: 0 0 20px rgba(255, 94, 120, 0.15);
-    }
-
-    .role-option #roleUser + label i {
-      color: #a855f7; /* Purple */
-    }
-    
-    .role-option #roleAdmin + label i {
-      color: #3b82f6; /* Blue */
-    }
-
-    .role-option input[type="radio"]:checked+label i {
-      transform: scale(1.15);
-      text-shadow: 0 0 15px currentColor;
-    }
-
-    .role-option label:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-    }
 
     .code-window:hover {
       transform: translateY(-5px) scale(1.02);
@@ -428,22 +360,24 @@
           </div>
 
           <div class="mb-4">
-            <label class="form-label">Select Role</label>
-            <div class="role-selector">
-              <div class="role-option">
-                <input type="radio" name="role" id="roleUser" value="user" required checked>
-                <label for="roleUser">
-                  <i class="bi bi-person-fill"></i>
-                  <span class="role-title">User</span>
-                </label>
-              </div>
-              <div class="role-option">
-                <input type="radio" name="role" id="roleAdmin" value="admin" required>
-                <label for="roleAdmin">
-                  <i class="bi bi-shield-lock-fill"></i>
-                  <span class="role-title">Admin</span>
-                </label>
-              </div>
+            <label for="roleSelect" class="form-label">Select Role</label>
+            <div class="input-group">
+              <span class="input-group-text bg-transparent" id="roleIcon" style="border-color: rgba(255, 255, 255, 0.1); color: #a855f7;">
+                <i class="bi bi-person-fill fs-5"></i>
+              </span>
+              <select class="form-control" id="roleSelect" required onchange="
+                const icon = document.querySelector('#roleIcon i');
+                if(this.value === 'admin') {
+                  icon.className = 'bi bi-shield-lock-fill fs-5';
+                  document.getElementById('roleIcon').style.color = '#3b82f6';
+                } else {
+                  icon.className = 'bi bi-person-fill fs-5';
+                  document.getElementById('roleIcon').style.color = '#a855f7';
+                }
+              ">
+                <option value="user" selected style="color: black;">User</option>
+                <option value="admin" style="color: black;">Admin</option>
+              </select>
             </div>
             <div class="invalid-feedback">Please select a role.</div>
           </div>
