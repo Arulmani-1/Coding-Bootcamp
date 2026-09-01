@@ -208,8 +208,17 @@
       box-shadow: 0 0 20px rgba(255, 94, 120, 0.15);
     }
 
+    .role-option #roleUser + label i {
+      color: #a855f7; /* Purple */
+    }
+    
+    .role-option #roleAdmin + label i {
+      color: #3b82f6; /* Blue */
+    }
+
     .role-option input[type="radio"]:checked+label i {
-      color: var(--accent-primary);
+      transform: scale(1.15);
+      text-shadow: 0 0 15px currentColor;
     }
 
     .role-option label:hover {
@@ -450,7 +459,6 @@
     .arrow-line {
       transition: transform 0.3s ease;
       display: inline-block;
-      letter-spacing: -2px;
       margin-left: 4px;
     }
 
@@ -531,7 +539,7 @@
         <!-- Go to Home Button -->
         <div class="hero-text-animate mt-4">
           <a href="home.html" class="btn-go-home">
-            Go to Home <span class="arrow-line">-----></span>
+            Go to Home <i class="bi bi-arrow-right arrow-line ms-1"></i>
           </a>
         </div>
       </div>
@@ -553,12 +561,23 @@
         <form class="needs-validation" novalidate>
           <!-- Role Selector -->
           <div class="mb-4">
-            <label for="roleSelect" class="form-label">Select Role</label>
-            <select class="form-control" id="roleSelect" required>
-              <option value="" disabled>-- Choose your role --</option>
-              <option value="admin">🛡️ Admin</option>
-              <option value="user" selected>👤 User</option>
-            </select>
+            <label class="form-label">Select Role</label>
+            <div class="role-selector">
+              <div class="role-option">
+                <input type="radio" name="role" id="roleUser" value="user" required checked>
+                <label for="roleUser">
+                  <i class="bi bi-person-fill"></i>
+                  <span class="role-title">User</span>
+                </label>
+              </div>
+              <div class="role-option">
+                <input type="radio" name="role" id="roleAdmin" value="admin" required>
+                <label for="roleAdmin">
+                  <i class="bi bi-shield-lock-fill"></i>
+                  <span class="role-title">Admin</span>
+                </label>
+              </div>
+            </div>
           </div>
 
           <div class="mb-4">
